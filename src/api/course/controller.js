@@ -7,10 +7,17 @@ export const create = ({ user, bodymen: { body } }, res, next) =>
     .then(success(res, 201))
     .catch(next)
 
-export const index = ({ querymen: { query, select, cursor } }, res, next) =>
+export const index = ({ user, querymen: { query, select, cursor } }, res, next) =>
   Course.find(query, select, cursor)
     .populate('user')
-    .then((courses) => courses.map((course) => course.view()))
+    .then((courses) => courses.map((course) => {
+      const isAdmin = user.role === 'admin'
+      const isAuthor = course['user'].equals(user.id)
+      if (isAuthor || isAdmin) {
+        return course.view()
+      }
+      return null
+    }).filter((course) => course != null))
     .then(success(res))
     .catch(next)
 
