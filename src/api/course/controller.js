@@ -15,16 +15,14 @@ export const index = (
   Course.find(query, select, cursor)
     .populate("user")
     .then(courses =>
-      courses
-        .map(course => {
-          const isAdmin = user.role === "admin";
-          const isAuthor = course["user"].equals(user.id);
-          if (isAuthor || isAdmin) {
-            return course.view();
-          }
-          return null;
-        })
-        .filter(course => course != null)
+      courses.reduce((filtered, course) => {
+        const isAdmin = user.role === "admin";
+        const isAuthor = course["user"].equals(user.id);
+        if (isAuthor || isAdmin) {
+          filtered.push(course.view());
+        }
+        return filtered;
+      }, [])
     )
     .then(success(res))
     .catch(next);
