@@ -1,8 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": [
-    "standard"
-  ],
+  "extends": ["standard", "plugin:prettier/recommended"],
   "env": {
     "jest": true,
     "jasmine": true

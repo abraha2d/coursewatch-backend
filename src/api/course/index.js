@@ -1,13 +1,13 @@
-import { Router } from 'express'
-import { middleware as query } from 'querymen'
-import { middleware as body } from 'bodymen'
-import { token } from '../../services/passport'
-import { create, index, show, update, destroy } from './controller'
-import { schema } from './model'
-export Course, { schema } from './model'
+import { Router } from "express";
+import { middleware as query } from "querymen";
+import { middleware as body } from "bodymen";
+import { token } from "../../services/passport";
+import { create, index, show, update, destroy } from "./controller";
+import { schema } from "./model";
+export Course, { schema } from "./model";
 
-const router = new Router()
-const { crn } = schema.tree
+const router = new Router();
+const { crn } = schema.tree;
 
 /**
  * @api {post} /courses Create course
@@ -21,10 +21,7 @@ const { crn } = schema.tree
  * @apiError 404 Course not found.
  * @apiError 401 user access only.
  */
-router.post('/',
-  token({ required: true }),
-  body({ crn }),
-  create)
+router.post("/", token({ required: true }), body({ crn }), create);
 
 /**
  * @api {get} /courses Retrieve courses
@@ -37,10 +34,7 @@ router.post('/',
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 401 user access only.
  */
-router.get('/',
-  token({ required: true }),
-  query(),
-  index)
+router.get("/", token({ required: true }), query(), index);
 
 /**
  * @api {get} /courses/:id Retrieve course
@@ -53,9 +47,7 @@ router.get('/',
  * @apiError 404 Course not found.
  * @apiError 401 user access only.
  */
-router.get('/:id',
-  token({ required: true }),
-  show)
+router.get("/:id", token({ required: true }), show);
 
 /**
  * @api {put} /courses/:id Update course
@@ -69,10 +61,7 @@ router.get('/:id',
  * @apiError 404 Course not found.
  * @apiError 401 user access only.
  */
-router.put('/:id',
-  token({ required: true }),
-  body({ crn }),
-  update)
+router.put("/:id", token({ required: true }), body({ crn }), update);
 
 /**
  * @api {delete} /courses/:id Delete course
@@ -84,8 +73,6 @@ router.put('/:id',
  * @apiError 404 Course not found.
  * @apiError 401 user access only.
  */
-router.delete('/:id',
-  token({ required: true }),
-  destroy)
+router.delete("/:id", token({ required: true }), destroy);
 
-export default router
+export default router;

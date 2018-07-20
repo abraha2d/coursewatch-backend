@@ -2,10 +2,6 @@
   "generator-rest": {
     "srcDir": "src",
     "apiDir": "api",
-    "authMethods": [
-      "password",
-      "github",
-      "google"
-    ]
+    "authMethods": ["password", "github", "google"]
   }
 }
