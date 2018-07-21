@@ -8,7 +8,8 @@ const subscriptionSchema = new Schema(
       required: true
     },
     crn: {
-      type: String
+      type: String,
+      required: true
     }
   },
   {
