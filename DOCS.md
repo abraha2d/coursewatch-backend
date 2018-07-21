@@ -7,17 +7,17 @@
 	- [Authenticate with Github](#authenticate-with-github)
 	- [Authenticate with Google](#authenticate-with-google)
 	
-- [Course](#course)
-	- [Create course](#create-course)
-	- [Delete course](#delete-course)
-	- [Retrieve course](#retrieve-course)
-	- [Retrieve courses](#retrieve-courses)
-	- [Update course](#update-course)
-	
 - [PasswordReset](#passwordreset)
 	- [Send email](#send-email)
 	- [Submit password](#submit-password)
 	- [Verify token](#verify-token)
+	
+- [Subscription](#subscription)
+	- [Create subscription](#create-subscription)
+	- [Delete subscription](#delete-subscription)
+	- [Retrieve subscription](#retrieve-subscription)
+	- [Retrieve subscriptions](#retrieve-subscriptions)
+	- [Update subscription](#update-subscription)
 	
 - [User](#user)
 	- [Create user](#create-user)
@@ -76,80 +76,6 @@
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>Google user accessToken.</p>							|
 
-# Course
-
-## Create course
-
-
-
-	POST /courses
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| crn			| 			|  <p>Course's crn.</p>							|
-
-## Delete course
-
-
-
-	DELETE /courses/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-
-## Retrieve course
-
-
-
-	GET /courses/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-
-## Retrieve courses
-
-
-
-	GET /courses
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| q			| String			| **optional** <p>Query to search.</p>							|
-| page			| Number			| **optional** <p>Page number.</p>							|
-| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
-| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
-| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
-
-## Update course
-
-
-
-	PUT /courses/:id
-
-
-### Parameters
-
-| Name    | Type      | Description                          |
-|---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>user access token.</p>							|
-| crn			| 			|  <p>Course's crn.</p>							|
-
 # PasswordReset
 
 ## Send email
@@ -185,6 +111,80 @@
 
 	GET /password-resets/:token
 
+
+# Subscription
+
+## Create subscription
+
+
+
+	POST /subscriptions
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+| crn			| 			|  <p>Subscription's crn.</p>							|
+
+## Delete subscription
+
+
+
+	DELETE /subscriptions/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+
+## Retrieve subscription
+
+
+
+	GET /subscriptions/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+
+## Retrieve subscriptions
+
+
+
+	GET /subscriptions
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+| q			| String			| **optional** <p>Query to search.</p>							|
+| page			| Number			| **optional** <p>Page number.</p>							|
+| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
+| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
+| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
+
+## Update subscription
+
+
+
+	PUT /subscriptions/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>user access token.</p>							|
+| crn			| 			|  <p>Subscription's crn.</p>							|
 
 # User
 
