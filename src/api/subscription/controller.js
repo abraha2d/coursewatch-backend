@@ -1,0 +1,46 @@
+import { success, notFound, authorOrAdmin } from "../../services/response/";
+import { Subscription } from ".";
+
+export const create = ({ user, bodymen: { body } }, res, next) =>
+  Subscription.create({ ...body, user })
+    .then(subscription => subscription.view(true))
+    .then(success(res, 201))
+    .catch(next);
+
+export const index = ({ querymen: { query, select, cursor } }, res, next) =>
+  Subscription.find(query, select, cursor)
+    .populate("user")
+    .then(subscriptions =>
+      subscriptions.map(subscription => subscription.view())
+    )
+    .then(success(res))
+    .catch(next);
+
+export const show = ({ params }, res, next) =>
+  Subscription.findById(params.id)
+    .populate("user")
+    .then(notFound(res))
+    .then(subscription => (subscription ? subscription.view() : null))
+    .then(success(res))
+    .catch(next);
+
+export const update = ({ user, bodymen: { body }, params }, res, next) =>
+  Subscription.findById(params.id)
+    .populate("user")
+    .then(notFound(res))
+    .then(authorOrAdmin(res, user, "user"))
+    .then(
+      subscription =>
+        subscription ? Object.assign(subscription, body).save() : null
+    )
+    .then(subscription => (subscription ? subscription.view(true) : null))
+    .then(success(res))
+    .catch(next);
+
+export const destroy = ({ user, params }, res, next) =>
+  Subscription.findById(params.id)
+    .then(notFound(res))
+    .then(authorOrAdmin(res, user, "user"))
+    .then(subscription => (subscription ? subscription.remove() : null))
+    .then(success(res, 204))
+    .catch(next);
