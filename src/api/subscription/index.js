@@ -38,10 +38,7 @@ router.get(
   "/",
   token({ required: true }),
   query({
-    q: {
-      type: String,
-      paths: ["crn"]
-    }
+    crn
   }),
   index
 );
