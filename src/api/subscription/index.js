@@ -34,7 +34,17 @@ router.post("/", token({ required: true }), body({ crn }), create);
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 401 user access only.
  */
-router.get("/", token({ required: true }), query(), index);
+router.get(
+  "/",
+  token({ required: true }),
+  query({
+    q: {
+      type: String,
+      paths: ["crn"]
+    }
+  }),
+  index
+);
 
 /**
  * @api {get} /subscriptions/:id Retrieve subscription
