@@ -16,7 +16,7 @@ export const index = (
     .populate("user")
     .then(subscriptions =>
       subscriptions.reduce((subscriptions, subscription) => {
-        if (subscription[user].equals(user.id) || user.role === "admin") {
+        if (subscription["user"].equals(user.id) || user.role === "admin") {
           subscriptions.push(subscription.view());
         }
         return subscriptions;
