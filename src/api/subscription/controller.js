@@ -25,7 +25,7 @@ export const index = (
     .then(success(res))
     .catch(next);
 
-export const show = ({ params }, res, next) =>
+export const show = ({ user, params }, res, next) =>
   Subscription.findById(params.id)
     .populate("user")
     .then(notFound(res))
