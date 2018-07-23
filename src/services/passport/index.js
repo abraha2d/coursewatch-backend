@@ -94,7 +94,7 @@ passport.use(
   "google",
   new BearerStrategy((token, done) => {
     googleService
-      .getUser(token)
+      .getUser2(token)
       .then(user => {
         return User.createFromService(user);
       })
