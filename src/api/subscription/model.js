@@ -7,7 +7,15 @@ const subscriptionSchema = new Schema(
       ref: "User",
       required: true
     },
+    term: {
+      type: String,
+      required: true
+    },
     crn: {
+      type: String,
+      required: true
+    },
+    title: {
       type: String,
       required: true
     }
@@ -29,7 +37,9 @@ subscriptionSchema.methods = {
       // simple view
       id: this.id,
       user: this.user.view(full),
+      term: this.term,
       crn: this.crn,
+      title: this.title,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
