@@ -1,15 +1,30 @@
 import mongoose, { Schema } from "mongoose";
 
-const subscriptionSchema = new Schema(
+const courseSchema = new Schema(
   {
-    user: {
+    term: {
       type: Schema.ObjectId,
-      ref: "User",
+      ref: "Term",
       required: true
     },
-    course: {
-      type: Schema.ObjectId,
-      ref: "Course",
+    crn: {
+      type: String,
+      required: true
+    },
+    subject: {
+      type: String,
+      required: true
+    },
+    number: {
+      type: String,
+      required: true
+    },
+    section: {
+      type: String,
+      required: true
+    },
+    title: {
+      type: String,
       required: true
     }
   },
@@ -24,13 +39,17 @@ const subscriptionSchema = new Schema(
   }
 );
 
-subscriptionSchema.methods = {
+courseSchema.methods = {
   view(full) {
     const view = {
       // simple view
       id: this.id,
-      user: this.user.view(full),
-      course: this.course.view(full),
+      term: this.term.view(full),
+      crn: this.crn,
+      subject: this.subject,
+      number: this.number,
+      section: this.section,
+      title: this.title,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
@@ -44,7 +63,7 @@ subscriptionSchema.methods = {
   }
 };
 
-const model = mongoose.model("Subscription", subscriptionSchema);
+const model = mongoose.model("Course", courseSchema);
 
 export const schema = model.schema;
 export default model;

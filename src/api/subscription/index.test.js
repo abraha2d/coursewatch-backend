@@ -23,10 +23,10 @@ beforeEach(async () => {
 test("POST /subscriptions 201 (user)", async () => {
   const { status, body } = await request(app())
     .post(`${apiRoot}`)
-    .send({ access_token: userSession, crn: "test" });
+    .send({ access_token: userSession, course: "test" });
   expect(status).toBe(201);
   expect(typeof body).toEqual("object");
-  expect(body.crn).toEqual("test");
+  expect(body.course).toEqual("test");
   expect(typeof body.user).toEqual("object");
 });
 
@@ -74,18 +74,18 @@ test("GET /subscriptions/:id 404 (user)", async () => {
 test("PUT /subscriptions/:id 200 (user)", async () => {
   const { status, body } = await request(app())
     .put(`${apiRoot}/${subscription.id}`)
-    .send({ access_token: userSession, crn: "test" });
+    .send({ access_token: userSession, course: "test" });
   expect(status).toBe(200);
   expect(typeof body).toEqual("object");
   expect(body.id).toEqual(subscription.id);
-  expect(body.crn).toEqual("test");
+  expect(body.course).toEqual("test");
   expect(typeof body.user).toEqual("object");
 });
 
 test("PUT /subscriptions/:id 401 (user) - another user", async () => {
   const { status } = await request(app())
     .put(`${apiRoot}/${subscription.id}`)
-    .send({ access_token: anotherSession, crn: "test" });
+    .send({ access_token: anotherSession, course: "test" });
   expect(status).toBe(401);
 });
 
@@ -97,7 +97,7 @@ test("PUT /subscriptions/:id 401", async () => {
 test("PUT /subscriptions/:id 404 (user)", async () => {
   const { status } = await request(app())
     .put(apiRoot + "/123456789098765432123456")
-    .send({ access_token: anotherSession, crn: "test" });
+    .send({ access_token: anotherSession, course: "test" });
   expect(status).toBe(404);
 });
 

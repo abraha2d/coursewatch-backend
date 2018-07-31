@@ -7,7 +7,7 @@ import { schema } from "./model";
 export Subscription, { schema } from "./model";
 
 const router = new Router();
-const { term, crn, title } = schema.tree;
+const { course } = schema.tree;
 
 /**
  * @api {post} /subscriptions Create subscription
@@ -15,13 +15,13 @@ const { term, crn, title } = schema.tree;
  * @apiGroup Subscription
  * @apiPermission user
  * @apiParam {String} access_token user access token.
- * @apiParam crn Subscription's crn.
+ * @apiParam course Subscription's course.
  * @apiSuccess {Object} subscription Subscription's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Subscription not found.
  * @apiError 401 user access only.
  */
-router.post("/", token({ required: true }), body({ term, crn, title }), create);
+router.post("/", token({ required: true }), body({ course }), create);
 
 /**
  * @api {get} /subscriptions Retrieve subscriptions
@@ -34,16 +34,7 @@ router.post("/", token({ required: true }), body({ term, crn, title }), create);
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 401 user access only.
  */
-router.get(
-  "/",
-  token({ required: true }),
-  query({
-    crn: {
-      type: [String]
-    }
-  }),
-  index
-);
+router.get("/", token({ required: true }), query(), index);
 
 /**
  * @api {get} /subscriptions/:id Retrieve subscription
@@ -64,18 +55,13 @@ router.get("/:id", token({ required: true }), show);
  * @apiGroup Subscription
  * @apiPermission user
  * @apiParam {String} access_token user access token.
- * @apiParam crn Subscription's crn.
+ * @apiParam course Subscription's course.
  * @apiSuccess {Object} subscription Subscription's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Subscription not found.
  * @apiError 401 user access only.
  */
-router.put(
-  "/:id",
-  token({ required: true }),
-  body({ term, crn, title }),
-  update
-);
+router.put("/:id", token({ required: true }), body({ course }), update);
 
 /**
  * @api {delete} /subscriptions/:id Delete subscription
