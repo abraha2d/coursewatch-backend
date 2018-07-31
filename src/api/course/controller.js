@@ -9,12 +9,14 @@ export const create = ({ bodymen: { body } }, res, next) =>
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   Course.find(query, select, cursor)
+    .populate("term")
     .then(courses => courses.map(course => course.view()))
     .then(success(res))
     .catch(next);
 
 export const show = ({ params }, res, next) =>
   Course.findById(params.id)
+    .populate("term")
     .then(notFound(res))
     .then(course => (course ? course.view() : null))
     .then(success(res))
@@ -22,6 +24,7 @@ export const show = ({ params }, res, next) =>
 
 export const update = ({ bodymen: { body }, params }, res, next) =>
   Course.findById(params.id)
+    .populate("term")
     .then(notFound(res))
     .then(course => (course ? Object.assign(course, body).save() : null))
     .then(course => (course ? course.view(true) : null))
