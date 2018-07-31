@@ -3,13 +3,16 @@ import mongoose, { Schema } from "mongoose";
 const collegeSchema = new Schema(
   {
     code: {
-      type: String
+      type: String,
+      required: true
     },
     name: {
-      type: String
+      type: String,
+      required: true
     },
     url: {
-      type: String
+      type: String,
+      required: true
     }
   },
   {
