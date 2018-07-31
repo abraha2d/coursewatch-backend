@@ -1,4 +1,5 @@
 import { success, notFound, authorOrAdmin } from "../../services/response/";
+import scrapeBanner from "../../services/ellucian";
 import { Subscription } from ".";
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
@@ -26,6 +27,7 @@ export const index = (
         return subscriptions;
       }, [])
     )
+    .then(subscriptions => scrapeBanner(subscriptions))
     .then(success(res))
     .catch(next);
 
