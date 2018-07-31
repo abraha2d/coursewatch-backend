@@ -7,19 +7,29 @@ export const create = ({ user, bodymen: { body } }, res, next) =>
     .then(success(res, 201))
     .catch(next);
 
-export const index = ({ querymen: { query, select, cursor } }, res, next) =>
+export const index = (
+  { user, querymen: { query, select, cursor } },
+  res,
+  next
+) =>
   Subscription.find(query, select, cursor)
     .populate("user")
     .then(subscriptions =>
-      subscriptions.map(subscription => subscription.view())
+      subscriptions.reduce((subscriptions, subscription) => {
+        if (subscription["user"].equals(user.id) || user.role === "admin") {
+          subscriptions.push(subscription.view());
+        }
+        return subscriptions;
+      }, [])
     )
     .then(success(res))
     .catch(next);
 
-export const show = ({ params }, res, next) =>
+export const show = ({ user, params }, res, next) =>
   Subscription.findById(params.id)
     .populate("user")
     .then(notFound(res))
+    .then(authorOrAdmin(res, user, "user"))
     .then(subscription => (subscription ? subscription.view() : null))
     .then(success(res))
     .catch(next);
