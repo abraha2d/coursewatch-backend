@@ -7,6 +7,20 @@
 	- [Authenticate with Github](#authenticate-with-github)
 	- [Authenticate with Google](#authenticate-with-google)
 	
+- [College](#college)
+	- [Create college](#create-college)
+	- [Delete college](#delete-college)
+	- [Retrieve college](#retrieve-college)
+	- [Retrieve colleges](#retrieve-colleges)
+	- [Update college](#update-college)
+	
+- [Course](#course)
+	- [Create course](#create-course)
+	- [Delete course](#delete-course)
+	- [Retrieve course](#retrieve-course)
+	- [Retrieve courses](#retrieve-courses)
+	- [Update course](#update-course)
+	
 - [PasswordReset](#passwordreset)
 	- [Send email](#send-email)
 	- [Submit password](#submit-password)
@@ -18,6 +32,13 @@
 	- [Retrieve subscription](#retrieve-subscription)
 	- [Retrieve subscriptions](#retrieve-subscriptions)
 	- [Update subscription](#update-subscription)
+	
+- [Term](#term)
+	- [Create term](#create-term)
+	- [Delete term](#delete-term)
+	- [Retrieve term](#retrieve-term)
+	- [Retrieve terms](#retrieve-terms)
+	- [Update term](#update-term)
 	
 - [User](#user)
 	- [Create user](#create-user)
@@ -76,6 +97,168 @@
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>Google user accessToken.</p>							|
 
+# College
+
+## Create college
+
+
+
+	POST /colleges
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+| code			| 			|  <p>College's code.</p>							|
+| name			| 			|  <p>College's name.</p>							|
+| url			| 			|  <p>College's url.</p>							|
+
+## Delete college
+
+
+
+	DELETE /colleges/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+
+## Retrieve college
+
+
+
+	GET /colleges/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+
+## Retrieve colleges
+
+
+
+	GET /colleges
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+| q			| String			| **optional** <p>Query to search.</p>							|
+| page			| Number			| **optional** <p>Page number.</p>							|
+| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
+| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
+| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
+
+## Update college
+
+
+
+	PUT /colleges/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+| code			| 			|  <p>College's code.</p>							|
+| name			| 			|  <p>College's name.</p>							|
+| url			| 			|  <p>College's url.</p>							|
+
+# Course
+
+## Create course
+
+
+
+	POST /courses
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+| term			| 			|  <p>Course's term.</p>							|
+| crn			| 			|  <p>Course's crn.</p>							|
+| subject			| 			|  <p>Course's subject.</p>							|
+| number			| 			|  <p>Course's number.</p>							|
+| section			| 			|  <p>Course's section.</p>							|
+| title			| 			|  <p>Course's title.</p>							|
+
+## Delete course
+
+
+
+	DELETE /courses/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+
+## Retrieve course
+
+
+
+	GET /courses/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+
+## Retrieve courses
+
+
+
+	GET /courses
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+| q			| String			| **optional** <p>Query to search.</p>							|
+| page			| Number			| **optional** <p>Page number.</p>							|
+| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
+| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
+| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
+
+## Update course
+
+
+
+	PUT /courses/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+| term			| 			|  <p>Course's term.</p>							|
+| crn			| 			|  <p>Course's crn.</p>							|
+| subject			| 			|  <p>Course's subject.</p>							|
+| number			| 			|  <p>Course's number.</p>							|
+| section			| 			|  <p>Course's section.</p>							|
+| title			| 			|  <p>Course's title.</p>							|
+
 # PasswordReset
 
 ## Send email
@@ -126,7 +309,7 @@
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>user access token.</p>							|
-| crn			| 			|  <p>Subscription's crn.</p>							|
+| course			| 			|  <p>Subscription's course.</p>							|
 
 ## Delete subscription
 
@@ -185,6 +368,84 @@
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>user access token.</p>							|
 | crn			| 			|  <p>Subscription's crn.</p>							|
+
+# Term
+
+## Create term
+
+
+
+	POST /terms
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+| college			| 			|  <p>Term's college.</p>							|
+| yyyymm			| 			|  <p>Term's yyyymm.</p>							|
+| name			| 			|  <p>Term's name.</p>							|
+
+## Delete term
+
+
+
+	DELETE /terms/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+
+## Retrieve term
+
+
+
+	GET /terms/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+
+## Retrieve terms
+
+
+
+	GET /terms
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+| q			| String			| **optional** <p>Query to search.</p>							|
+| page			| Number			| **optional** <p>Page number.</p>							|
+| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
+| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
+| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
+
+## Update term
+
+
+
+	PUT /terms/:id
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| access_token			| String			|  <p>master access token.</p>							|
+| college			| 			|  <p>Term's college.</p>							|
+| yyyymm			| 			|  <p>Term's yyyymm.</p>							|
+| name			| 			|  <p>Term's name.</p>							|
 
 # User
 

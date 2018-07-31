@@ -191,6 +191,856 @@ define({
     },
     {
       type: "post",
+      url: "/colleges",
+      title: "Create college",
+      name: "CreateCollege",
+      group: "College",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "code",
+              description: "<p>College's code.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "name",
+              description: "<p>College's name.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "url",
+              description: "<p>College's url.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object",
+              optional: false,
+              field: "college",
+              description: "<p>College's data.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>College not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/college/index.js",
+      groupTitle: "College"
+    },
+    {
+      type: "delete",
+      url: "/colleges/:id",
+      title: "Delete college",
+      name: "DeleteCollege",
+      group: "College",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 204": [
+            {
+              group: "Success 204",
+              optional: false,
+              field: "204",
+              description: "<p>No Content.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>College not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/college/index.js",
+      groupTitle: "College"
+    },
+    {
+      type: "get",
+      url: "/colleges/:id",
+      title: "Retrieve college",
+      name: "RetrieveCollege",
+      group: "College",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object",
+              optional: false,
+              field: "college",
+              description: "<p>College's data.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>College not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/college/index.js",
+      groupTitle: "College"
+    },
+    {
+      type: "get",
+      url: "/colleges",
+      title: "Retrieve colleges",
+      name: "RetrieveColleges",
+      group: "College",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String",
+              optional: true,
+              field: "q",
+              description: "<p>Query to search.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "Number",
+              size: "1..30",
+              optional: true,
+              field: "page",
+              defaultValue: "1",
+              description: "<p>Page number.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "Number",
+              size: "1..100",
+              optional: true,
+              field: "limit",
+              defaultValue: "30",
+              description: "<p>Amount of returned items.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String[]",
+              optional: true,
+              field: "sort",
+              defaultValue: "-createdAt",
+              description: "<p>Order of returned items.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String[]",
+              optional: true,
+              field: "fields",
+              description: "<p>Fields to be returned.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object[]",
+              optional: false,
+              field: "colleges",
+              description: "<p>List of colleges.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/college/index.js",
+      groupTitle: "College"
+    },
+    {
+      type: "put",
+      url: "/colleges/:id",
+      title: "Update college",
+      name: "UpdateCollege",
+      group: "College",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "code",
+              description: "<p>College's code.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "name",
+              description: "<p>College's name.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "url",
+              description: "<p>College's url.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object",
+              optional: false,
+              field: "college",
+              description: "<p>College's data.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>College not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/college/index.js",
+      groupTitle: "College"
+    },
+    {
+      type: "post",
+      url: "/courses",
+      title: "Create course",
+      name: "CreateCourse",
+      group: "Course",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "term",
+              description: "<p>Course's term.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "crn",
+              description: "<p>Course's crn.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "subject",
+              description: "<p>Course's subject.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "number",
+              description: "<p>Course's number.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "section",
+              description: "<p>Course's section.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "title",
+              description: "<p>Course's title.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object",
+              optional: false,
+              field: "course",
+              description: "<p>Course's data.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Course not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/course/index.js",
+      groupTitle: "Course"
+    },
+    {
+      type: "delete",
+      url: "/courses/:id",
+      title: "Delete course",
+      name: "DeleteCourse",
+      group: "Course",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 204": [
+            {
+              group: "Success 204",
+              optional: false,
+              field: "204",
+              description: "<p>No Content.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Course not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/course/index.js",
+      groupTitle: "Course"
+    },
+    {
+      type: "get",
+      url: "/courses/:id",
+      title: "Retrieve course",
+      name: "RetrieveCourse",
+      group: "Course",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object",
+              optional: false,
+              field: "course",
+              description: "<p>Course's data.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Course not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/course/index.js",
+      groupTitle: "Course"
+    },
+    {
+      type: "get",
+      url: "/courses",
+      title: "Retrieve courses",
+      name: "RetrieveCourses",
+      group: "Course",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String",
+              optional: true,
+              field: "q",
+              description: "<p>Query to search.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "Number",
+              size: "1..30",
+              optional: true,
+              field: "page",
+              defaultValue: "1",
+              description: "<p>Page number.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "Number",
+              size: "1..100",
+              optional: true,
+              field: "limit",
+              defaultValue: "30",
+              description: "<p>Amount of returned items.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String[]",
+              optional: true,
+              field: "sort",
+              defaultValue: "-createdAt",
+              description: "<p>Order of returned items.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String[]",
+              optional: true,
+              field: "fields",
+              description: "<p>Fields to be returned.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object[]",
+              optional: false,
+              field: "courses",
+              description: "<p>List of courses.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/course/index.js",
+      groupTitle: "Course"
+    },
+    {
+      type: "put",
+      url: "/courses/:id",
+      title: "Update course",
+      name: "UpdateCourse",
+      group: "Course",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "term",
+              description: "<p>Course's term.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "crn",
+              description: "<p>Course's crn.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "subject",
+              description: "<p>Course's subject.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "number",
+              description: "<p>Course's number.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "section",
+              description: "<p>Course's section.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "title",
+              description: "<p>Course's title.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object",
+              optional: false,
+              field: "course",
+              description: "<p>Course's data.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Course not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/course/index.js",
+      groupTitle: "Course"
+    },
+    {
+      type: "post",
       url: "/password-resets",
       title: "Send email",
       name: "SendPasswordReset",
@@ -378,6 +1228,81 @@ define({
             {
               group: "Parameter",
               optional: false,
+              field: "course",
+              description: "<p>Subscription's course.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object",
+              optional: false,
+              field: "subscription",
+              description: "<p>Subscription's data.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Subscription not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>user access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/subscription/index.js",
+      groupTitle: "Subscription"
+    },
+    {
+      type: "post",
+      url: "/subscriptions",
+      title: "Create subscription",
+      name: "CreateSubscription",
+      group: "Subscription",
+      permission: [
+        {
+          name: "user",
+          title: "User access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>user access token.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
               field: "crn",
               description: "<p>Subscription's crn.</p>"
             }
@@ -407,6 +1332,67 @@ define({
               field: "400",
               description: "<p>Some parameters may contain invalid values.</p>"
             },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Subscription not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>user access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/subscription-old/index.js",
+      groupTitle: "Subscription"
+    },
+    {
+      type: "delete",
+      url: "/subscriptions/:id",
+      title: "Delete subscription",
+      name: "DeleteSubscription",
+      group: "Subscription",
+      permission: [
+        {
+          name: "user",
+          title: "User access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>user access token.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 204": [
+            {
+              group: "Success 204",
+              optional: false,
+              field: "204",
+              description: "<p>No Content.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
             {
               group: "Error 4xx",
               optional: false,
@@ -484,6 +1470,75 @@ define({
         }
       },
       version: "0.0.0",
+      filename: "src/api/subscription-old/index.js",
+      groupTitle: "Subscription"
+    },
+    {
+      type: "get",
+      url: "/subscriptions/:id",
+      title: "Retrieve subscription",
+      name: "RetrieveSubscription",
+      group: "Subscription",
+      permission: [
+        {
+          name: "user",
+          title: "User access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>user access token.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object",
+              optional: false,
+              field: "subscription",
+              description: "<p>Subscription's data.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Subscription not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>user access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
       filename: "src/api/subscription/index.js",
       groupTitle: "Subscription"
     },
@@ -542,6 +1597,109 @@ define({
               optional: false,
               field: "404",
               description: "<p>Subscription not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>user access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/subscription-old/index.js",
+      groupTitle: "Subscription"
+    },
+    {
+      type: "get",
+      url: "/subscriptions",
+      title: "Retrieve subscriptions",
+      name: "RetrieveSubscriptions",
+      group: "Subscription",
+      permission: [
+        {
+          name: "user",
+          title: "User access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>user access token.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String",
+              optional: true,
+              field: "q",
+              description: "<p>Query to search.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "Number",
+              size: "1..30",
+              optional: true,
+              field: "page",
+              defaultValue: "1",
+              description: "<p>Page number.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "Number",
+              size: "1..100",
+              optional: true,
+              field: "limit",
+              defaultValue: "30",
+              description: "<p>Amount of returned items.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String[]",
+              optional: true,
+              field: "sort",
+              defaultValue: "-createdAt",
+              description: "<p>Order of returned items.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String[]",
+              optional: true,
+              field: "fields",
+              description: "<p>Fields to be returned.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object[]",
+              optional: false,
+              field: "subscriptions",
+              description: "<p>List of subscriptions.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
             },
             {
               group: "Error 4xx",
@@ -656,7 +1814,7 @@ define({
         }
       },
       version: "0.0.0",
-      filename: "src/api/subscription/index.js",
+      filename: "src/api/subscription-old/index.js",
       groupTitle: "Subscription"
     },
     {
@@ -731,8 +1889,490 @@ define({
         }
       },
       version: "0.0.0",
+      filename: "src/api/subscription-old/index.js",
+      groupTitle: "Subscription"
+    },
+    {
+      type: "put",
+      url: "/subscriptions/:id",
+      title: "Update subscription",
+      name: "UpdateSubscription",
+      group: "Subscription",
+      permission: [
+        {
+          name: "user",
+          title: "User access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>user access token.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "course",
+              description: "<p>Subscription's course.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object",
+              optional: false,
+              field: "subscription",
+              description: "<p>Subscription's data.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Subscription not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>user access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
       filename: "src/api/subscription/index.js",
       groupTitle: "Subscription"
+    },
+    {
+      type: "post",
+      url: "/terms",
+      title: "Create term",
+      name: "CreateTerm",
+      group: "Term",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "college",
+              description: "<p>Term's college.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "yyyymm",
+              description: "<p>Term's yyyymm.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "name",
+              description: "<p>Term's name.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object",
+              optional: false,
+              field: "term",
+              description: "<p>Term's data.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Term not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/term/index.js",
+      groupTitle: "Term"
+    },
+    {
+      type: "delete",
+      url: "/terms/:id",
+      title: "Delete term",
+      name: "DeleteTerm",
+      group: "Term",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 204": [
+            {
+              group: "Success 204",
+              optional: false,
+              field: "204",
+              description: "<p>No Content.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Term not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/term/index.js",
+      groupTitle: "Term"
+    },
+    {
+      type: "get",
+      url: "/terms/:id",
+      title: "Retrieve term",
+      name: "RetrieveTerm",
+      group: "Term",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object",
+              optional: false,
+              field: "term",
+              description: "<p>Term's data.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Term not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/term/index.js",
+      groupTitle: "Term"
+    },
+    {
+      type: "get",
+      url: "/terms",
+      title: "Retrieve terms",
+      name: "RetrieveTerms",
+      group: "Term",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String",
+              optional: true,
+              field: "q",
+              description: "<p>Query to search.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "Number",
+              size: "1..30",
+              optional: true,
+              field: "page",
+              defaultValue: "1",
+              description: "<p>Page number.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "Number",
+              size: "1..100",
+              optional: true,
+              field: "limit",
+              defaultValue: "30",
+              description: "<p>Amount of returned items.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String[]",
+              optional: true,
+              field: "sort",
+              defaultValue: "-createdAt",
+              description: "<p>Order of returned items.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String[]",
+              optional: true,
+              field: "fields",
+              description: "<p>Fields to be returned.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object[]",
+              optional: false,
+              field: "terms",
+              description: "<p>List of terms.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/term/index.js",
+      groupTitle: "Term"
+    },
+    {
+      type: "put",
+      url: "/terms/:id",
+      title: "Update term",
+      name: "UpdateTerm",
+      group: "Term",
+      permission: [
+        {
+          name: "master",
+          title: "Master access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>master access token.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "college",
+              description: "<p>Term's college.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "yyyymm",
+              description: "<p>Term's yyyymm.</p>"
+            },
+            {
+              group: "Parameter",
+              optional: false,
+              field: "name",
+              description: "<p>Term's name.</p>"
+            }
+          ]
+        }
+      },
+      success: {
+        fields: {
+          "Success 200": [
+            {
+              group: "Success 200",
+              type: "Object",
+              optional: false,
+              field: "term",
+              description: "<p>Term's data.</p>"
+            }
+          ]
+        }
+      },
+      error: {
+        fields: {
+          "Error 4xx": [
+            {
+              group: "Error 4xx",
+              type: "Object",
+              optional: false,
+              field: "400",
+              description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Term not found.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "401",
+              description: "<p>master access only.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/term/index.js",
+      groupTitle: "Term"
     },
     {
       type: "post",
@@ -801,9 +2441,9 @@ define({
       },
       success: {
         fields: {
-          "Sucess 201": [
+          "Success 201": [
             {
-              group: "Sucess 201",
+              group: "Success 201",
               type: "Object",
               optional: false,
               field: "user",
