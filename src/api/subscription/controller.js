@@ -1,5 +1,5 @@
 import { success, notFound, authorOrAdmin } from "../../services/response/";
-import scrapeBanner from "../../services/ellucian";
+import scrapeBannerFromSubscriptions from "../../services/ellucian";
 import { Subscription } from ".";
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
@@ -22,12 +22,13 @@ export const index = (
     .then(subscriptions =>
       subscriptions.reduce((subscriptions, subscription) => {
         if (subscription["user"].equals(user.id) || user.role === "admin") {
-          subscriptions.push(subscription.view());
+          subscriptions.push(subscription);
         }
         return subscriptions;
       }, [])
     )
-    .then(subscriptions => scrapeBanner(subscriptions))
+    .then(subscriptions => scrapeBannerFromSubscriptions(subscriptions))
+    .then(subscription => (subscription ? subscription.view() : null))
     .then(success(res))
     .catch(next);
 
