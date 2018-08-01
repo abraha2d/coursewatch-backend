@@ -2,7 +2,7 @@ import { Router } from "express";
 import { middleware as query } from "querymen";
 import { middleware as body } from "bodymen";
 import { token } from "../../services/passport";
-import { create, index, show, update, destroy } from "./controller";
+import { create, index, show, update, destroy, process } from "./controller";
 import { schema } from "./model";
 export Subscription, { schema } from "./model";
 
@@ -35,6 +35,16 @@ router.post("/", token({ required: true }), body({ course }), create);
  * @apiError 401 user access only.
  */
 router.get("/", token({ required: true }), query(), index);
+
+/**
+ * @api {get} /subscriptions/update Process subscriptions
+ * @apiName ProcessSubscriptions
+ * @apiGroup Subscription
+ * @apiPermission public
+ * @apiUse listParams
+ * @apiSuccess (Success 204) 204 No Content.
+ */
+router.get("/process", query(), process);
 
 /**
  * @api {get} /subscriptions/:id Retrieve subscription

@@ -1,8 +1,5 @@
 import { success, notFound, authorOrAdmin } from "../../services/response/";
-import {
-  processSubscription,
-  processSubscriptions
-} from "../../services/ellucian";
+import { processSubscriptions } from "../../services/ellucian";
 import { Subscription } from ".";
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
@@ -25,14 +22,10 @@ export const index = (
     .then(subscriptions =>
       subscriptions.reduce((subscriptions, subscription) => {
         if (subscription["user"].equals(user.id) || user.role === "admin") {
-          subscriptions.push(subscription);
+          subscriptions.push(subscription.view());
         }
         return subscriptions;
       }, [])
-    )
-    .then(subscriptions => processSubscriptions(subscriptions))
-    .then(subscriptions =>
-      subscriptions.map(subscription => subscription.view())
     )
     .then(success(res))
     .catch(next);
@@ -46,7 +39,6 @@ export const show = ({ user, params }, res, next) =>
     })
     .then(notFound(res))
     .then(authorOrAdmin(res, user, "user"))
-    .then(subscription => processSubscription(subscription))
     .then(subscription => (subscription ? subscription.view() : null))
     .then(success(res))
     .catch(next);
@@ -73,5 +65,20 @@ export const destroy = ({ user, params }, res, next) =>
     .then(notFound(res))
     .then(authorOrAdmin(res, user, "user"))
     .then(subscription => (subscription ? subscription.remove() : null))
+    .then(success(res, 204))
+    .catch(next);
+
+export const process = (
+  { user, querymen: { query, select, cursor } },
+  res,
+  next
+) =>
+  Subscription.find(query, select, cursor)
+    .populate("user")
+    .populate({
+      path: "course",
+      populate: { path: "term", populate: { path: "college" } }
+    })
+    .then(subscriptions => processSubscriptions(subscriptions))
     .then(success(res, 204))
     .catch(next);
