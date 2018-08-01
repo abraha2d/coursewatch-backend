@@ -1,7 +1,54 @@
 import rp from "request-promise";
 import cheerio from "cheerio";
 
-function scrapeBannerFromSubscription(subscription) {
+function processCourse(course) {
+  const options = {
+    uri: `${course.term.college.url}/bwckschd.p_disp_detail_sched?term_in=${
+      course.term.yyyymm
+    }&crn_in=${course.crn}`,
+    transform: body => cheerio.load(body)
+  };
+
+  return rp(options).then($ => {
+    const dciSel = "body > div.pagebodydiv > table:nth-child(2) > tbody";
+    const tsnSel = `${dciSel} > tr:nth-child(1) > th`;
+    const seatSel = `${dciSel} > tr:nth-child(2) > td > table > tbody > tr:nth-child(2)`;
+    const capSel = `${seatSel} > td:nth-child(2)`;
+    const actSel = `${seatSel} > td:nth-child(3)`;
+    const remSel = `${seatSel} > td:nth-child(4)`;
+
+    const tsn = $(tsnSel).text();
+    const [title, crn, sn, section] = tsn.split(" - ");
+    const [subject, number] = sn.split(" ");
+
+    if (crn !== course.crn) {
+      return course;
+    }
+
+    const availability = {
+      capacity: $(capSel).text(),
+      actual: $(actSel).text(),
+      remaining: $(remSel).text()
+    };
+
+    Object.assign(course, {
+      title,
+      subject,
+      number,
+      section,
+      availability
+    }).save();
+
+    return course;
+  });
+}
+
+function processCourses(courses) {
+  const rPromises = courses.map(course => processCourse(course));
+  return Promise.all(rPromises);
+}
+
+function processSubscription(subscription) {
   const options = {
     uri: `${
       subscription.course.term.college.url
@@ -24,7 +71,7 @@ function scrapeBannerFromSubscription(subscription) {
     const [subject, number] = sn.split(" ");
 
     if (crn !== subscription.course.crn) {
-      return subscription.view();
+      return subscription;
     }
 
     const availability = {
@@ -41,15 +88,22 @@ function scrapeBannerFromSubscription(subscription) {
       availability
     }).save();
 
-    return subscription.view();
+    return subscription;
   });
 }
 
-function scrapeBannerFromSubscriptions(subscriptions) {
+function processSubscriptions(subscriptions) {
   const rPromises = subscriptions.map(subscription =>
-    scrapeBannerFromSubscription(subscription)
+    processSubscription(subscription)
   );
   return Promise.all(rPromises);
 }
 
-export default scrapeBannerFromSubscriptions;
+export {
+  processCourse,
+  processCourses,
+  processSubscription,
+  processSubscriptions
+};
+
+export default processCourse;

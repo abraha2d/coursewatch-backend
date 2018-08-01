@@ -1,5 +1,8 @@
 import { success, notFound, authorOrAdmin } from "../../services/response/";
-import scrapeBannerFromSubscriptions from "../../services/ellucian";
+import {
+  processSubscription,
+  processSubscriptions
+} from "../../services/ellucian";
 import { Subscription } from ".";
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
@@ -27,8 +30,10 @@ export const index = (
         return subscriptions;
       }, [])
     )
-    .then(subscriptions => scrapeBannerFromSubscriptions(subscriptions))
-    .then(subscription => (subscription ? subscription.view() : null))
+    .then(subscriptions => processSubscriptions(subscriptions))
+    .then(subscriptions =>
+      subscriptions.map(subscription => subscription.view())
+    )
     .then(success(res))
     .catch(next);
 
@@ -41,6 +46,7 @@ export const show = ({ user, params }, res, next) =>
     })
     .then(notFound(res))
     .then(authorOrAdmin(res, user, "user"))
+    .then(subscription => processSubscription(subscription))
     .then(subscription => (subscription ? subscription.view() : null))
     .then(success(res))
     .catch(next);

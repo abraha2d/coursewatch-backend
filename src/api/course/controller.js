@@ -1,5 +1,6 @@
 import { success, notFound } from "../../services/response/";
 import { Course } from ".";
+import { processCourse, processCourses } from "../../services/ellucian";
 
 export const create = ({ bodymen: { body } }, res, next) =>
   Course.create(body)
@@ -13,6 +14,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
       path: "term",
       populate: { path: "college" }
     })
+    .then(courses => processCourses(courses))
     .then(courses => courses.map(course => course.view()))
     .then(success(res))
     .catch(next);
@@ -24,6 +26,7 @@ export const show = ({ params }, res, next) =>
       populate: { path: "college" }
     })
     .then(notFound(res))
+    .then(course => processCourse(course))
     .then(course => (course ? course.view() : null))
     .then(success(res))
     .catch(next);
