@@ -26,6 +26,9 @@ const courseSchema = new Schema(
     title: {
       type: String,
       required: true
+    },
+    availability: {
+      type: Object
     }
   },
   {
@@ -50,6 +53,7 @@ courseSchema.methods = {
       number: this.number,
       section: this.section,
       title: this.title,
+      availability: this.availability,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
