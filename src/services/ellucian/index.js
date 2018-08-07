@@ -59,11 +59,16 @@ function processSubscriptions(subscriptions) {
   return Promise.all(rPromises);
 }
 
+function schedulePing(url, timeout) {
+  rp(url).then(() => setTimeout(() => schedulePing(url, timeout), timeout));
+}
+
 export {
   processCourse,
   processCourses,
   processSubscription,
-  processSubscriptions
+  processSubscriptions,
+  schedulePing
 };
 
-export default processCourse;
+export default schedulePing;
