@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { middleware as query } from "querymen";
 import { middleware as body } from "bodymen";
-import { master } from "../../services/passport";
+import { master, token } from "../../services/passport";
 import { create, index, show, update, destroy } from "./controller";
 import { schema } from "./model";
 export College, { schema } from "./model";
@@ -29,27 +29,27 @@ router.post("/", master(), body({ code, name, url }), create);
  * @api {get} /colleges Retrieve colleges
  * @apiName RetrieveColleges
  * @apiGroup College
- * @apiPermission master
- * @apiParam {String} access_token master access token.
+ * @apiPermission user
+ * @apiParam {String} access_token user access token.
  * @apiUse listParams
  * @apiSuccess {Object[]} colleges List of colleges.
  * @apiError {Object} 400 Some parameters may contain invalid values.
- * @apiError 401 master access only.
+ * @apiError 401 user access only.
  */
-router.get("/", master(), query(), index);
+router.get("/", token({ required: true }), query(), index);
 
 /**
  * @api {get} /colleges/:id Retrieve college
  * @apiName RetrieveCollege
  * @apiGroup College
- * @apiPermission master
- * @apiParam {String} access_token master access token.
+ * @apiPermission user
+ * @apiParam {String} access_token user access token.
  * @apiSuccess {Object} college College's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 College not found.
- * @apiError 401 master access only.
+ * @apiError 401 user access only.
  */
-router.get("/:id", master(), show);
+router.get("/:id", token({ required: true }), show);
 
 /**
  * @api {put} /colleges/:id Update college

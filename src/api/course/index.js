@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { middleware as query } from "querymen";
 import { middleware as body } from "bodymen";
-import { master } from "../../services/passport";
+import { master, token } from "../../services/passport";
 import { create, index, show, update, destroy } from "./controller";
 import { schema } from "./model";
 export Course, { schema } from "./model";
@@ -37,27 +37,27 @@ router.post(
  * @api {get} /courses Retrieve courses
  * @apiName RetrieveCourses
  * @apiGroup Course
- * @apiPermission master
- * @apiParam {String} access_token master access token.
+ * @apiPermission user
+ * @apiParam {String} access_token user access token.
  * @apiUse listParams
  * @apiSuccess {Object[]} courses List of courses.
  * @apiError {Object} 400 Some parameters may contain invalid values.
- * @apiError 401 master access only.
+ * @apiError 401 user access only.
  */
-router.get("/", master(), query(), index);
+router.get("/", token({ required: true }), query(), index);
 
 /**
  * @api {get} /courses/:id Retrieve course
  * @apiName RetrieveCourse
  * @apiGroup Course
- * @apiPermission master
- * @apiParam {String} access_token master access token.
+ * @apiPermission user
+ * @apiParam {String} access_token user access token.
  * @apiSuccess {Object} course Course's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Course not found.
- * @apiError 401 master access only.
+ * @apiError 401 user access only.
  */
-router.get("/:id", master(), show);
+router.get("/:id", token({ required: true }), show);
 
 /**
  * @api {put} /courses/:id Update course

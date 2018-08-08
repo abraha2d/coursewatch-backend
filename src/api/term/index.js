@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { middleware as query } from "querymen";
 import { middleware as body } from "bodymen";
-import { master } from "../../services/passport";
+import { master, token } from "../../services/passport";
 import { create, index, show, update, destroy } from "./controller";
 import { schema } from "./model";
 export Term, { schema } from "./model";
@@ -29,27 +29,27 @@ router.post("/", master(), body({ college, yyyymm, name }), create);
  * @api {get} /terms Retrieve terms
  * @apiName RetrieveTerms
  * @apiGroup Term
- * @apiPermission master
- * @apiParam {String} access_token master access token.
+ * @apiPermission user
+ * @apiParam {String} access_token user access token.
  * @apiUse listParams
  * @apiSuccess {Object[]} terms List of terms.
  * @apiError {Object} 400 Some parameters may contain invalid values.
- * @apiError 401 master access only.
+ * @apiError 401 user access only.
  */
-router.get("/", master(), query(), index);
+router.get("/", token({ required: true }), query(), index);
 
 /**
  * @api {get} /terms/:id Retrieve term
  * @apiName RetrieveTerm
  * @apiGroup Term
- * @apiPermission master
- * @apiParam {String} access_token master access token.
+ * @apiPermission user
+ * @apiParam {String} access_token user access token.
  * @apiSuccess {Object} term Term's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Term not found.
- * @apiError 401 master access only.
+ * @apiError 401 user access only.
  */
-router.get("/:id", master(), show);
+router.get("/:id", token({ required: true }), show);
 
 /**
  * @api {put} /terms/:id Update term
