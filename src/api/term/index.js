@@ -36,7 +36,7 @@ router.post("/", master(), body({ college, yyyymm, name }), create);
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 401 user access only.
  */
-router.get("/", token({ required: true }), query(), index);
+router.get("/", token({ required: true }), query({ college }), index);
 
 /**
  * @api {get} /terms/:id Retrieve term
