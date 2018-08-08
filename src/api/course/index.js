@@ -44,7 +44,12 @@ router.post(
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 401 user access only.
  */
-router.get("/", token({ required: true }), query({ term }), index);
+router.get(
+  "/",
+  token({ required: true }),
+  query({ term, crn: { type: RegExp } }),
+  index
+);
 
 /**
  * @api {get} /courses/:id Retrieve course
