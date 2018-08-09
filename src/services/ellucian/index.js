@@ -9,38 +9,40 @@ function processCourse(course) {
     transform: body => cheerio.load(body)
   };
 
-  return rp(options).then($ => {
-    const dciSel = "body > div.pagebodydiv > table:nth-child(2) > tbody";
-    const tsnSel = `${dciSel} > tr:nth-child(1) > th`;
-    const seatSel = `${dciSel} > tr:nth-child(2) > td > table > tbody > tr:nth-child(2)`;
-    const capSel = `${seatSel} > td:nth-child(2)`;
-    const actSel = `${seatSel} > td:nth-child(3)`;
-    const remSel = `${seatSel} > td:nth-child(4)`;
+  return rp(options)
+    .then($ => {
+      const dciSel = "body > div.pagebodydiv > table:nth-child(2) > tbody";
+      const tsnSel = `${dciSel} > tr:nth-child(1) > th`;
+      const seatSel = `${dciSel} > tr:nth-child(2) > td > table > tbody > tr:nth-child(2)`;
+      const capSel = `${seatSel} > td:nth-child(2)`;
+      const actSel = `${seatSel} > td:nth-child(3)`;
+      const remSel = `${seatSel} > td:nth-child(4)`;
 
-    const tsn = $(tsnSel).text();
-    const [title, crn, sn, section] = tsn.split(" - ");
-    const [subject, number] = sn.split(" ");
+      const tsn = $(tsnSel).text();
+      const [title, crn, sn, section] = tsn.split(" - ");
+      const [subject, number] = sn.split(" ");
 
-    if (crn !== course.crn) {
+      if (crn !== course.crn) {
+        return course;
+      }
+
+      const availability = {
+        capacity: $(capSel).text(),
+        actual: $(actSel).text(),
+        remaining: $(remSel).text()
+      };
+
+      Object.assign(course, {
+        title,
+        subject,
+        number,
+        section,
+        availability
+      }).save();
+
       return course;
-    }
-
-    const availability = {
-      capacity: $(capSel).text(),
-      actual: $(actSel).text(),
-      remaining: $(remSel).text()
-    };
-
-    Object.assign(course, {
-      title,
-      subject,
-      number,
-      section,
-      availability
-    }).save();
-
-    return course;
-  });
+    })
+    .catch(error => process.stderr.write(error.toString()));
 }
 
 function processCourses(courses) {
