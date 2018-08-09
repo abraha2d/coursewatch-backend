@@ -19,10 +19,19 @@ function processCourse(course) {
       const remSel = `${seatSel} > td:nth-child(4)`;
 
       const tsn = $(tsnSel).text();
+      if (tsn === "") {
+        process.stderr.write(`Invalid CRN (${course.crn}), removing entry...`);
+        course.remove();
+        return null;
+      }
+
       const [title, crn, sn, section] = tsn.split(" - ");
       const [subject, number] = sn.split(" ");
 
       if (crn !== course.crn) {
+        process.stderr.write(
+          `Retrieved CRN (${crn}) doesn't match stored CRN (${course.crn})!`
+        );
         return course;
       }
 

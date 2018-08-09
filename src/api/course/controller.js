@@ -15,7 +15,12 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
       populate: { path: "college" }
     })
     .then(courses => processCourses(courses))
-    .then(courses => courses.map(course => course.view()))
+    .then(courses =>
+      courses.reduce((courses, course) => {
+        course && courses.push(course.view());
+        return courses;
+      }, [])
+    )
     .then(success(res))
     .catch(next);
 
