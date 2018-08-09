@@ -1,4 +1,5 @@
 import { success, notFound, authorOrAdmin } from "../../services/response/";
+import { processSubscriptions } from "../../services/ellucian";
 import { Subscription } from ".";
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
@@ -14,6 +15,10 @@ export const index = (
 ) =>
   Subscription.find(query, select, cursor)
     .populate("user")
+    .populate({
+      path: "course",
+      populate: { path: "term", populate: { path: "college" } }
+    })
     .then(subscriptions =>
       subscriptions.reduce((subscriptions, subscription) => {
         if (subscription["user"].equals(user.id) || user.role === "admin") {
@@ -28,6 +33,10 @@ export const index = (
 export const show = ({ user, params }, res, next) =>
   Subscription.findById(params.id)
     .populate("user")
+    .populate({
+      path: "course",
+      populate: { path: "term", populate: { path: "college" } }
+    })
     .then(notFound(res))
     .then(authorOrAdmin(res, user, "user"))
     .then(subscription => (subscription ? subscription.view() : null))
@@ -37,6 +46,10 @@ export const show = ({ user, params }, res, next) =>
 export const update = ({ user, bodymen: { body }, params }, res, next) =>
   Subscription.findById(params.id)
     .populate("user")
+    .populate({
+      path: "course",
+      populate: { path: "term", populate: { path: "college" } }
+    })
     .then(notFound(res))
     .then(authorOrAdmin(res, user, "user"))
     .then(
@@ -52,5 +65,20 @@ export const destroy = ({ user, params }, res, next) =>
     .then(notFound(res))
     .then(authorOrAdmin(res, user, "user"))
     .then(subscription => (subscription ? subscription.remove() : null))
+    .then(success(res, 204))
+    .catch(next);
+
+export const process = (
+  { user, querymen: { query, select, cursor } },
+  res,
+  next
+) =>
+  Subscription.find(query, select, cursor)
+    .populate("user")
+    .populate({
+      path: "course",
+      populate: { path: "term", populate: { path: "college" } }
+    })
+    .then(subscriptions => processSubscriptions(subscriptions))
     .then(success(res, 204))
     .catch(next);

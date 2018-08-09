@@ -1,6 +1,6 @@
 {
   "name": "coursewatch-backend",
-  "version": "0.0.0",
+  "version": "0.2.0-alpha.1",
   "main": "src",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "test": "jest",
     "coverage": "npm test -- --coverage",
     "postcoverage": "opn coverage/lcov-report/index.html",
-    "dev": "nodemon --inspect -i \"*.test.js\" .",
+    "dev": "nodemon $NODE_DEBUG_OPTION -i \"*.test.js\" .",
     "prod": "cross-env NODE_ENV=production nodemon -i \"*.test.js\" -r dotenv-safe/config .",
     "lint": "eslint src",
     "docs": "apidoc -i src -o docs && apidoc-markdown -p docs -o DOCS.md",
@@ -52,6 +52,7 @@
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "bodymen": "^1.0.3",
+    "cheerio": "^1.0.0-rc.2",
     "compression": "^1.7.1",
     "cors": "^2.8.4",
     "express": "^4.16.2",

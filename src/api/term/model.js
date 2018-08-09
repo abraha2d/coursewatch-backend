@@ -1,15 +1,18 @@
 import mongoose, { Schema } from "mongoose";
 
-const subscriptionSchema = new Schema(
+const termSchema = new Schema(
   {
-    user: {
+    college: {
       type: Schema.ObjectId,
-      ref: "User",
+      ref: "College",
       required: true
     },
-    course: {
-      type: Schema.ObjectId,
-      ref: "Course",
+    yyyymm: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
       required: true
     }
   },
@@ -24,13 +27,14 @@ const subscriptionSchema = new Schema(
   }
 );
 
-subscriptionSchema.methods = {
+termSchema.methods = {
   view(full) {
     const view = {
       // simple view
       id: this.id,
-      user: this.user.view(full),
-      course: this.course.view(full),
+      college: this.college.view(full),
+      yyyymm: this.yyyymm,
+      name: this.name,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
@@ -44,7 +48,7 @@ subscriptionSchema.methods = {
   }
 };
 
-const model = mongoose.model("Subscription", subscriptionSchema);
+const model = mongoose.model("Term", termSchema);
 
 export const schema = model.schema;
 export default model;

@@ -2,6 +2,7 @@ import http from "http";
 import { env, mongo, port, ip, apiRoot } from "./config";
 import mongoose from "./services/mongoose";
 import express from "./services/express";
+import schedulePing from "./services/ellucian";
 import api from "./api";
 
 const app = express(apiRoot, api);
@@ -19,6 +20,7 @@ setImmediate(() => {
       env
     );
   });
+  schedulePing(`http://${ip}:${port}/subscriptions/process`, 5000);
 });
 
 export default app;
