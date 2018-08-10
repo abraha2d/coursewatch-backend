@@ -1,6 +1,8 @@
 import rp from "request-promise";
 import cheerio from "cheerio";
 
+import { sendMail } from "../sendgrid";
+
 function processCourse(course) {
   const options = {
     uri: `${course.term.college.url}/bwckschd.p_disp_detail_sched?term_in=${
@@ -60,7 +62,24 @@ function processCourses(courses) {
 }
 
 function processSubscription(subscription) {
-  return processCourse(subscription.course).then(() => subscription);
+  return processCourse(subscription.course).then(course => {
+    if (course.availability.remaining > 0) {
+      sendMail({
+        toEmail: subscription.user.email,
+        subject: `[Coursewatch] Alert for CRN ${course.crn}`,
+        content: `Hey ${subscription.user.name}, ${course.subject} ${
+          course.number
+        } has ${
+          course.availability.remaining
+        } seats remaining! Go get your course! ${
+          course.term.college.url
+        }/bwckschd.p_disp_detail_sched?term_in=${course.term.yyyymm}&crn_in=${
+          course.crn
+        }`
+      });
+    }
+    return subscription;
+  });
 }
 
 function processSubscriptions(subscriptions) {
