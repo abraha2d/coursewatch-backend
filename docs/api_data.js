@@ -345,8 +345,8 @@ define({
       group: "College",
       permission: [
         {
-          name: "master",
-          title: "Master access only",
+          name: "user",
+          title: "User access only",
           description:
             "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
         }
@@ -359,7 +359,7 @@ define({
               type: "String",
               optional: false,
               field: "access_token",
-              description: "<p>master access token.</p>"
+              description: "<p>user access token.</p>"
             }
           ]
         }
@@ -397,7 +397,7 @@ define({
               group: "Error 4xx",
               optional: false,
               field: "401",
-              description: "<p>master access only.</p>"
+              description: "<p>user access only.</p>"
             }
           ]
         }
@@ -414,8 +414,8 @@ define({
       group: "College",
       permission: [
         {
-          name: "master",
-          title: "Master access only",
+          name: "user",
+          title: "User access only",
           description:
             "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
         }
@@ -428,7 +428,7 @@ define({
               type: "String",
               optional: false,
               field: "access_token",
-              description: "<p>master access token.</p>"
+              description: "<p>user access token.</p>"
             },
             {
               group: "Parameter",
@@ -500,7 +500,7 @@ define({
               group: "Error 4xx",
               optional: false,
               field: "401",
-              description: "<p>master access only.</p>"
+              description: "<p>user access only.</p>"
             }
           ]
         }
@@ -604,8 +604,8 @@ define({
       group: "Course",
       permission: [
         {
-          name: "master",
-          title: "Master access only",
+          name: "user",
+          title: "User access only",
           description:
             "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
         }
@@ -618,7 +618,7 @@ define({
               type: "String",
               optional: false,
               field: "access_token",
-              description: "<p>master access token.</p>"
+              description: "<p>user access token.</p>"
             },
             {
               group: "Parameter",
@@ -692,7 +692,7 @@ define({
               group: "Error 4xx",
               optional: false,
               field: "401",
-              description: "<p>master access only.</p>"
+              description: "<p>user access only.</p>"
             }
           ]
         }
@@ -770,8 +770,8 @@ define({
       group: "Course",
       permission: [
         {
-          name: "master",
-          title: "Master access only",
+          name: "user",
+          title: "User access only",
           description:
             "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
         }
@@ -784,7 +784,7 @@ define({
               type: "String",
               optional: false,
               field: "access_token",
-              description: "<p>master access token.</p>"
+              description: "<p>user access token.</p>"
             }
           ]
         }
@@ -822,7 +822,7 @@ define({
               group: "Error 4xx",
               optional: false,
               field: "401",
-              description: "<p>master access only.</p>"
+              description: "<p>user access only.</p>"
             }
           ]
         }
@@ -839,8 +839,8 @@ define({
       group: "Course",
       permission: [
         {
-          name: "master",
-          title: "Master access only",
+          name: "user",
+          title: "User access only",
           description:
             "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
         }
@@ -853,7 +853,7 @@ define({
               type: "String",
               optional: false,
               field: "access_token",
-              description: "<p>master access token.</p>"
+              description: "<p>user access token.</p>"
             },
             {
               group: "Parameter",
@@ -925,7 +925,7 @@ define({
               group: "Error 4xx",
               optional: false,
               field: "401",
-              description: "<p>master access only.</p>"
+              description: "<p>user access only.</p>"
             }
           ]
         }
@@ -1277,81 +1277,6 @@ define({
       groupTitle: "Subscription"
     },
     {
-      type: "post",
-      url: "/subscriptions",
-      title: "Create subscription",
-      name: "CreateSubscription",
-      group: "Subscription",
-      permission: [
-        {
-          name: "user",
-          title: "User access only",
-          description:
-            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
-        }
-      ],
-      parameter: {
-        fields: {
-          Parameter: [
-            {
-              group: "Parameter",
-              type: "String",
-              optional: false,
-              field: "access_token",
-              description: "<p>user access token.</p>"
-            },
-            {
-              group: "Parameter",
-              optional: false,
-              field: "crn",
-              description: "<p>Subscription's crn.</p>"
-            }
-          ]
-        }
-      },
-      success: {
-        fields: {
-          "Success 200": [
-            {
-              group: "Success 200",
-              type: "Object",
-              optional: false,
-              field: "subscription",
-              description: "<p>Subscription's data.</p>"
-            }
-          ]
-        }
-      },
-      error: {
-        fields: {
-          "Error 4xx": [
-            {
-              group: "Error 4xx",
-              type: "Object",
-              optional: false,
-              field: "400",
-              description: "<p>Some parameters may contain invalid values.</p>"
-            },
-            {
-              group: "Error 4xx",
-              optional: false,
-              field: "404",
-              description: "<p>Subscription not found.</p>"
-            },
-            {
-              group: "Error 4xx",
-              optional: false,
-              field: "401",
-              description: "<p>user access only.</p>"
-            }
-          ]
-        }
-      },
-      version: "0.0.0",
-      filename: "src/api/subscription-old/index.js",
-      groupTitle: "Subscription"
-    },
-    {
       type: "delete",
       url: "/subscriptions/:id",
       title: "Delete subscription",
@@ -1413,32 +1338,12 @@ define({
       groupTitle: "Subscription"
     },
     {
-      type: "delete",
-      url: "/subscriptions/:id",
-      title: "Delete subscription",
-      name: "DeleteSubscription",
+      type: "get",
+      url: "/subscriptions/process",
+      title: "Process subscriptions",
+      name: "ProcessSubscriptions",
       group: "Subscription",
-      permission: [
-        {
-          name: "user",
-          title: "User access only",
-          description:
-            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
-        }
-      ],
-      parameter: {
-        fields: {
-          Parameter: [
-            {
-              group: "Parameter",
-              type: "String",
-              optional: false,
-              field: "access_token",
-              description: "<p>user access token.</p>"
-            }
-          ]
-        }
-      },
+      permission: [{ name: "public" }],
       success: {
         fields: {
           "Success 204": [
@@ -1451,190 +1356,12 @@ define({
           ]
         }
       },
-      error: {
-        fields: {
-          "Error 4xx": [
-            {
-              group: "Error 4xx",
-              optional: false,
-              field: "404",
-              description: "<p>Subscription not found.</p>"
-            },
-            {
-              group: "Error 4xx",
-              optional: false,
-              field: "401",
-              description: "<p>user access only.</p>"
-            }
-          ]
-        }
-      },
-      version: "0.0.0",
-      filename: "src/api/subscription-old/index.js",
-      groupTitle: "Subscription"
-    },
-    {
-      type: "get",
-      url: "/subscriptions/:id",
-      title: "Retrieve subscription",
-      name: "RetrieveSubscription",
-      group: "Subscription",
-      permission: [
-        {
-          name: "user",
-          title: "User access only",
-          description:
-            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
-        }
-      ],
-      parameter: {
-        fields: {
-          Parameter: [
-            {
-              group: "Parameter",
-              type: "String",
-              optional: false,
-              field: "access_token",
-              description: "<p>user access token.</p>"
-            }
-          ]
-        }
-      },
-      success: {
-        fields: {
-          "Success 200": [
-            {
-              group: "Success 200",
-              type: "Object",
-              optional: false,
-              field: "subscription",
-              description: "<p>Subscription's data.</p>"
-            }
-          ]
-        }
-      },
-      error: {
-        fields: {
-          "Error 4xx": [
-            {
-              group: "Error 4xx",
-              type: "Object",
-              optional: false,
-              field: "400",
-              description: "<p>Some parameters may contain invalid values.</p>"
-            },
-            {
-              group: "Error 4xx",
-              optional: false,
-              field: "404",
-              description: "<p>Subscription not found.</p>"
-            },
-            {
-              group: "Error 4xx",
-              optional: false,
-              field: "401",
-              description: "<p>user access only.</p>"
-            }
-          ]
-        }
-      },
       version: "0.0.0",
       filename: "src/api/subscription/index.js",
-      groupTitle: "Subscription"
-    },
-    {
-      type: "get",
-      url: "/subscriptions/:id",
-      title: "Retrieve subscription",
-      name: "RetrieveSubscription",
-      group: "Subscription",
-      permission: [
-        {
-          name: "user",
-          title: "User access only",
-          description:
-            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
-        }
-      ],
+      groupTitle: "Subscription",
       parameter: {
         fields: {
           Parameter: [
-            {
-              group: "Parameter",
-              type: "String",
-              optional: false,
-              field: "access_token",
-              description: "<p>user access token.</p>"
-            }
-          ]
-        }
-      },
-      success: {
-        fields: {
-          "Success 200": [
-            {
-              group: "Success 200",
-              type: "Object",
-              optional: false,
-              field: "subscription",
-              description: "<p>Subscription's data.</p>"
-            }
-          ]
-        }
-      },
-      error: {
-        fields: {
-          "Error 4xx": [
-            {
-              group: "Error 4xx",
-              type: "Object",
-              optional: false,
-              field: "400",
-              description: "<p>Some parameters may contain invalid values.</p>"
-            },
-            {
-              group: "Error 4xx",
-              optional: false,
-              field: "404",
-              description: "<p>Subscription not found.</p>"
-            },
-            {
-              group: "Error 4xx",
-              optional: false,
-              field: "401",
-              description: "<p>user access only.</p>"
-            }
-          ]
-        }
-      },
-      version: "0.0.0",
-      filename: "src/api/subscription-old/index.js",
-      groupTitle: "Subscription"
-    },
-    {
-      type: "get",
-      url: "/subscriptions",
-      title: "Retrieve subscriptions",
-      name: "RetrieveSubscriptions",
-      group: "Subscription",
-      permission: [
-        {
-          name: "user",
-          title: "User access only",
-          description:
-            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
-        }
-      ],
-      parameter: {
-        fields: {
-          Parameter: [
-            {
-              group: "Parameter",
-              type: "String",
-              optional: false,
-              field: "access_token",
-              description: "<p>user access token.</p>"
-            },
             {
               group: "Parameter",
               type: "String",
@@ -1677,16 +1404,44 @@ define({
             }
           ]
         }
+      }
+    },
+    {
+      type: "get",
+      url: "/subscriptions/:id",
+      title: "Retrieve subscription",
+      name: "RetrieveSubscription",
+      group: "Subscription",
+      permission: [
+        {
+          name: "user",
+          title: "User access only",
+          description:
+            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
+        }
+      ],
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: false,
+              field: "access_token",
+              description: "<p>user access token.</p>"
+            }
+          ]
+        }
       },
       success: {
         fields: {
           "Success 200": [
             {
               group: "Success 200",
-              type: "Object[]",
+              type: "Object",
               optional: false,
-              field: "subscriptions",
-              description: "<p>List of subscriptions.</p>"
+              field: "subscription",
+              description: "<p>Subscription's data.</p>"
             }
           ]
         }
@@ -1700,6 +1455,12 @@ define({
               optional: false,
               field: "400",
               description: "<p>Some parameters may contain invalid values.</p>"
+            },
+            {
+              group: "Error 4xx",
+              optional: false,
+              field: "404",
+              description: "<p>Subscription not found.</p>"
             },
             {
               group: "Error 4xx",
@@ -1814,82 +1575,7 @@ define({
         }
       },
       version: "0.0.0",
-      filename: "src/api/subscription-old/index.js",
-      groupTitle: "Subscription"
-    },
-    {
-      type: "put",
-      url: "/subscriptions/:id",
-      title: "Update subscription",
-      name: "UpdateSubscription",
-      group: "Subscription",
-      permission: [
-        {
-          name: "user",
-          title: "User access only",
-          description:
-            "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
-        }
-      ],
-      parameter: {
-        fields: {
-          Parameter: [
-            {
-              group: "Parameter",
-              type: "String",
-              optional: false,
-              field: "access_token",
-              description: "<p>user access token.</p>"
-            },
-            {
-              group: "Parameter",
-              optional: false,
-              field: "crn",
-              description: "<p>Subscription's crn.</p>"
-            }
-          ]
-        }
-      },
-      success: {
-        fields: {
-          "Success 200": [
-            {
-              group: "Success 200",
-              type: "Object",
-              optional: false,
-              field: "subscription",
-              description: "<p>Subscription's data.</p>"
-            }
-          ]
-        }
-      },
-      error: {
-        fields: {
-          "Error 4xx": [
-            {
-              group: "Error 4xx",
-              type: "Object",
-              optional: false,
-              field: "400",
-              description: "<p>Some parameters may contain invalid values.</p>"
-            },
-            {
-              group: "Error 4xx",
-              optional: false,
-              field: "404",
-              description: "<p>Subscription not found.</p>"
-            },
-            {
-              group: "Error 4xx",
-              optional: false,
-              field: "401",
-              description: "<p>user access only.</p>"
-            }
-          ]
-        }
-      },
-      version: "0.0.0",
-      filename: "src/api/subscription-old/index.js",
+      filename: "src/api/subscription/index.js",
       groupTitle: "Subscription"
     },
     {
@@ -2123,8 +1809,8 @@ define({
       group: "Term",
       permission: [
         {
-          name: "master",
-          title: "Master access only",
+          name: "user",
+          title: "User access only",
           description:
             "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
         }
@@ -2137,7 +1823,7 @@ define({
               type: "String",
               optional: false,
               field: "access_token",
-              description: "<p>master access token.</p>"
+              description: "<p>user access token.</p>"
             }
           ]
         }
@@ -2175,7 +1861,7 @@ define({
               group: "Error 4xx",
               optional: false,
               field: "401",
-              description: "<p>master access only.</p>"
+              description: "<p>user access only.</p>"
             }
           ]
         }
@@ -2192,8 +1878,8 @@ define({
       group: "Term",
       permission: [
         {
-          name: "master",
-          title: "Master access only",
+          name: "user",
+          title: "User access only",
           description:
             "<p>You must pass <code>access_token</code> parameter or a Bearer Token authorization header to access this endpoint.</p>"
         }
@@ -2206,7 +1892,7 @@ define({
               type: "String",
               optional: false,
               field: "access_token",
-              description: "<p>master access token.</p>"
+              description: "<p>user access token.</p>"
             },
             {
               group: "Parameter",
@@ -2278,7 +1964,7 @@ define({
               group: "Error 4xx",
               optional: false,
               field: "401",
-              description: "<p>master access only.</p>"
+              description: "<p>user access only.</p>"
             }
           ]
         }
