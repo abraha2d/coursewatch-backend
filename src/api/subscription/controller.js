@@ -27,6 +27,9 @@ export const index = (
         return subscriptions;
       }, [])
     )
+    .then(subscriptions =>
+      subscriptions.sort((a, b) => a.course.crn - b.course.crn)
+    )
     .then(success(res))
     .catch(next);
 

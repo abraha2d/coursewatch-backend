@@ -34,7 +34,7 @@ router.post("/", token({ required: true }), body({ course }), create);
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 401 user access only.
  */
-router.get("/", token({ required: true }), query({ sort: "crn" }), index);
+router.get("/", token({ required: true }), query(), index);
 
 /**
  * @api {get} /subscriptions/process Process subscriptions
