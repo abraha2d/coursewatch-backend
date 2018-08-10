@@ -9,7 +9,7 @@ export const create = ({ bodymen: { body } }, res, next) =>
     .catch(next);
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
-  Course.find(query, select, cursor)
+  Course.find(query, select)
     .populate({
       path: "term",
       populate: { path: "college" }
@@ -21,6 +21,7 @@ export const index = ({ querymen: { query, select, cursor } }, res, next) =>
         return courses;
       }, [])
     )
+    .then(courses => courses.sort((a, b) => a.crn - b.crn))
     .then(success(res))
     .catch(next);
 
