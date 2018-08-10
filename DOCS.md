@@ -1,4 +1,4 @@
-# coursewatch-backend v0.0.0
+# coursewatch-backend v0.2.0-alpha.2
 
 
 
@@ -29,6 +29,7 @@
 - [Subscription](#subscription)
 	- [Create subscription](#create-subscription)
 	- [Delete subscription](#delete-subscription)
+	- [Process subscriptions](#process-subscriptions)
 	- [Retrieve subscription](#retrieve-subscription)
 	- [Retrieve subscriptions](#retrieve-subscriptions)
 	- [Update subscription](#update-subscription)
@@ -139,7 +140,7 @@
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>master access token.</p>							|
+| access_token			| String			|  <p>user access token.</p>							|
 
 ## Retrieve colleges
 
@@ -152,7 +153,7 @@
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>master access token.</p>							|
+| access_token			| String			|  <p>user access token.</p>							|
 | q			| String			| **optional** <p>Query to search.</p>							|
 | page			| Number			| **optional** <p>Page number.</p>							|
 | limit			| Number			| **optional** <p>Amount of returned items.</p>							|
@@ -188,7 +189,7 @@
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>master access token.</p>							|
+| access_token			| String			|  <p>user access token.</p>							|
 | term			| 			|  <p>Course's term.</p>							|
 | crn			| 			|  <p>Course's crn.</p>							|
 | subject			| 			|  <p>Course's subject.</p>							|
@@ -220,7 +221,7 @@
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>master access token.</p>							|
+| access_token			| String			|  <p>user access token.</p>							|
 
 ## Retrieve courses
 
@@ -233,7 +234,7 @@
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>master access token.</p>							|
+| access_token			| String			|  <p>user access token.</p>							|
 | q			| String			| **optional** <p>Query to search.</p>							|
 | page			| Number			| **optional** <p>Page number.</p>							|
 | limit			| Number			| **optional** <p>Amount of returned items.</p>							|
@@ -324,6 +325,23 @@
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>user access token.</p>							|
 
+## Process subscriptions
+
+
+
+	GET /subscriptions/process
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| q			| String			| **optional** <p>Query to search.</p>							|
+| page			| Number			| **optional** <p>Page number.</p>							|
+| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
+| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
+| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
+
 ## Retrieve subscription
 
 
@@ -367,7 +385,7 @@
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>user access token.</p>							|
-| crn			| 			|  <p>Subscription's crn.</p>							|
+| course			| 			|  <p>Subscription's course.</p>							|
 
 # Term
 
@@ -411,7 +429,7 @@
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>master access token.</p>							|
+| access_token			| String			|  <p>user access token.</p>							|
 
 ## Retrieve terms
 
@@ -424,7 +442,7 @@
 
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
-| access_token			| String			|  <p>master access token.</p>							|
+| access_token			| String			|  <p>user access token.</p>							|
 | q			| String			| **optional** <p>Query to search.</p>							|
 | page			| Number			| **optional** <p>Page number.</p>							|
 | limit			| Number			| **optional** <p>Amount of returned items.</p>							|

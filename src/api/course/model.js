@@ -9,23 +9,24 @@ const courseSchema = new Schema(
     },
     crn: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     subject: {
-      type: String,
-      required: true
+      type: String
+      // required: true
     },
     number: {
-      type: String,
-      required: true
+      type: String
+      // required: true
     },
     section: {
-      type: String,
-      required: true
+      type: String
+      // required: true
     },
     title: {
-      type: String,
-      required: true
+      type: String
+      // required: true
     },
     availability: {
       type: Object

@@ -13,8 +13,8 @@ const { term, crn, subject, number, section, title } = schema.tree;
  * @api {post} /courses Create course
  * @apiName CreateCourse
  * @apiGroup Course
- * @apiPermission master
- * @apiParam {String} access_token master access token.
+ * @apiPermission user
+ * @apiParam {String} access_token user access token.
  * @apiParam term Course's term.
  * @apiParam crn Course's crn.
  * @apiParam subject Course's subject.
@@ -24,11 +24,11 @@ const { term, crn, subject, number, section, title } = schema.tree;
  * @apiSuccess {Object} course Course's data.
  * @apiError {Object} 400 Some parameters may contain invalid values.
  * @apiError 404 Course not found.
- * @apiError 401 master access only.
+ * @apiError 401 user access only.
  */
 router.post(
   "/",
-  master(),
+  token({ required: true }),
   body({ term, crn, subject, number, section, title }),
   create
 );

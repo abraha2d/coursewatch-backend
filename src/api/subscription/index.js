@@ -37,7 +37,7 @@ router.post("/", token({ required: true }), body({ course }), create);
 router.get("/", token({ required: true }), query(), index);
 
 /**
- * @api {get} /subscriptions/update Process subscriptions
+ * @api {get} /subscriptions/process Process subscriptions
  * @apiName ProcessSubscriptions
  * @apiGroup Subscription
  * @apiPermission public
