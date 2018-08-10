@@ -47,7 +47,7 @@ router.post(
 router.get(
   "/",
   token({ required: true }),
-  query({ term, crn: { type: RegExp } }),
+  query({ term, crn: { type: RegExp }, sort: "crn" }),
   index
 );
 
