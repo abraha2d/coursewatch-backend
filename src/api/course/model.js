@@ -9,7 +9,8 @@ const courseSchema = new Schema(
     },
     crn: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     subject: {
       type: String
