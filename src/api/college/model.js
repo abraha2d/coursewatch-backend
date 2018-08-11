@@ -33,15 +33,15 @@ collegeSchema.methods = {
       id: this.id,
       code: this.code,
       name: this.name,
-      url: this.url,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt
+      url: this.url
     };
 
     return full
       ? {
-          ...view
+          ...view,
           // add properties for a full view
+          createdAt: this.createdAt,
+          updatedAt: this.updatedAt
         }
       : view;
   }
