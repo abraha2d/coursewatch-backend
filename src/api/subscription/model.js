@@ -31,14 +31,14 @@ subscriptionSchema.methods = {
       id: this.id,
       user: this.user.view(full),
       course: this.course.view(full),
-      createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
 
     return full
       ? {
-          ...view
+          ...view,
           // add properties for a full view
+          createdAt: this.createdAt
         }
       : view;
   }

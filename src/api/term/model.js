@@ -34,15 +34,15 @@ termSchema.methods = {
       id: this.id,
       college: this.college.view(full),
       yyyymm: this.yyyymm,
-      name: this.name,
-      createdAt: this.createdAt,
-      updatedAt: this.updatedAt
+      name: this.name
     };
 
     return full
       ? {
-          ...view
+          ...view,
           // add properties for a full view
+          createdAt: this.createdAt,
+          updatedAt: this.updatedAt
         }
       : view;
   }

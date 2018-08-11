@@ -1,11 +1,22 @@
 import rp from "request-promise";
 import cheerio from "cheerio";
 
+import { sendMail } from "../sendgrid";
+
+function courseURL(course) {
+  const {
+    term: {
+      college: { url },
+      yyyymm
+    },
+    crn
+  } = course;
+  return `${url}/bwckschd.p_disp_detail_sched?term_in=${yyyymm}&crn_in=${crn}`;
+}
+
 function processCourse(course) {
   const options = {
-    uri: `${course.term.college.url}/bwckschd.p_disp_detail_sched?term_in=${
-      course.term.yyyymm
-    }&crn_in=${course.crn}`,
+    uri: courseURL(course),
     transform: body => cheerio.load(body)
   };
 
@@ -60,7 +71,28 @@ function processCourses(courses) {
 }
 
 function processSubscription(subscription) {
-  return processCourse(subscription.course).then(() => subscription);
+  return processCourse(subscription.course).then(course => {
+    if (course === undefined) {
+      return subscription;
+    }
+    const { crn, subject, number, section, availability } = course;
+    if (availability.remaining > 0) {
+      process.stdout.write(
+        `Notifying ${subscription.user.email} about ${crn}...\n`
+      );
+      sendMail({
+        toEmail: subscription.user.email,
+        subject: `[Coursewatch] Alert for CRN ${crn}`,
+        content: `Hey ${subscription.user.name},<br><br>
+        ${subject} ${number} ${section} has ${
+          availability.remaining
+        } seats remaining! Go get your course!<br><br>
+        ${courseURL(course)}<br><br>
+        - Coursewatch`
+      });
+    }
+    return subscription;
+  });
 }
 
 function processSubscriptions(subscriptions) {

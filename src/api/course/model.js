@@ -29,7 +29,9 @@ const courseSchema = new Schema(
       // required: true
     },
     availability: {
-      type: Object
+      capacity: Number,
+      actual: Number,
+      remaining: Number
     }
   },
   {
@@ -55,14 +57,14 @@ courseSchema.methods = {
       section: this.section,
       title: this.title,
       availability: this.availability,
-      createdAt: this.createdAt,
       updatedAt: this.updatedAt
     };
 
     return full
       ? {
-          ...view
+          ...view,
           // add properties for a full view
+          createdAt: this.createdAt
         }
       : view;
   }
