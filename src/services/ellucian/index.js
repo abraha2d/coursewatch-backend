@@ -98,7 +98,7 @@ function processSubscription(subscription) {
         - Coursewatch`
       });
       sendText({
-        phones: e164("7705198692", "US"),
+        phones: e164(subscription.user.tel, "US"),
         text: `Alert for CRN ${crn} (${subject} ${number} ${section}): ${
           availability.remaining
         } seats remaining!`
