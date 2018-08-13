@@ -114,7 +114,9 @@ function processSubscriptions(subscriptions) {
 }
 
 function schedulePing(url, timeout) {
-  rp(url).then(() => setTimeout(() => schedulePing(url, timeout), timeout));
+  rp(url)
+    .then(() => setTimeout(() => schedulePing(url, timeout), timeout))
+    .catch(() => setTimeout(() => schedulePing(url, timeout), timeout));
 }
 
 export {
