@@ -7,7 +7,6 @@ import { Subscription } from ".";
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
   Subscription.create({ ...body, user })
-    .then(subscription => processSubscription(subscription))
     .then(subscription => subscription.view(true))
     .then(success(res, 201))
     .catch(next);
