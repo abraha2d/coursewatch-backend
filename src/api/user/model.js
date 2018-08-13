@@ -39,6 +39,9 @@ const userSchema = new Schema(
     picture: {
       type: String,
       trim: true
+    },
+    tel: {
+      type: String
     }
   },
   {

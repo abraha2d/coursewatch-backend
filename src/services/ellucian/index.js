@@ -1,7 +1,10 @@
 import rp from "request-promise";
 import cheerio from "cheerio";
 
+import { e164 } from "libphonenumber";
+
 import { sendMail } from "../sendgrid";
+import { sendText } from "../textmagic";
 
 function courseURL(course) {
   const {
@@ -94,10 +97,9 @@ function processSubscription(subscription) {
         Course info: ${courseURL(course)}<br><br>
         - Coursewatch`
       });
-      sendMail({
-        toEmail: "7705198692@vtext.com",
-        subject: `Coursewatch`,
-        content: `Alert for CRN ${crn} (${subject} ${number} ${section}): ${
+      sendText({
+        phones: e164("7705198692", "US"),
+        text: `Alert for CRN ${crn} (${subject} ${number} ${section}): ${
           availability.remaining
         } seats remaining!`
       });
