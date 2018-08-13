@@ -1,6 +1,6 @@
 {
   "name": "coursewatch-backend",
-  "version": "0.2.0-alpha.2",
+  "version": "0.2.1-beta.1",
   "main": "src",
   "private": true,
   "scripts": {
@@ -59,6 +59,7 @@
     "express-force-ssl": "^0.3.2",
     "google-auth-library": "^1.6.1",
     "jsonwebtoken": "^8.1.0",
+    "libphonenumber": "0.0.10",
     "mongoose": "^5.1.0",
     "mongoose-create-unique": "^0.4.4",
     "mongoose-keywords": "^0.4.0",
@@ -71,6 +72,7 @@
     "rand-token": "^0.4.0",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
-    "sendgrid": "^4.0.2"
+    "sendgrid": "^4.0.2",
+    "textmagic-rest-client": "^1.0.10"
   }
 }

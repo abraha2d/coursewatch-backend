@@ -1,7 +1,10 @@
 import rp from "request-promise";
 import cheerio from "cheerio";
 
+import { e164 } from "libphonenumber";
+
 import { sendMail } from "../sendgrid";
+import { sendText } from "../textmagic";
 
 function courseURL(course) {
   const {
@@ -75,7 +78,7 @@ function processSubscription(subscription) {
     if (course === undefined) {
       return subscription;
     }
-    const { crn, subject, number, section, availability } = course;
+    const { term, crn, subject, number, section, availability } = course;
     if (availability.remaining > 0) {
       process.stdout.write(
         `Notifying ${subscription.user.email} about ${crn}...\n`
@@ -87,8 +90,18 @@ function processSubscription(subscription) {
         ${subject} ${number} ${section} has ${
           availability.remaining
         } seats remaining! Go get your course!<br><br>
-        ${courseURL(course)}<br><br>
+        - Login to BuzzPort: https://buzzport.gatech.edu/<br>
+        - Click this link to jump straight to registration: https://buzzport.gatech.edu/cp/ip/login?sys=sct&url=https://oscar.gatech.edu/pls/bprod/bwskfreg.P_AltPin?term_in=${
+          term.yyyymm
+        }<br><br>
+        Course info: ${courseURL(course)}<br><br>
         - Coursewatch`
+      });
+      sendText({
+        phones: e164(subscription.user.tel, "US"),
+        text: `Alert for CRN ${crn} (${subject} ${number} ${section}): ${
+          availability.remaining
+        } seats remaining!`
       });
     }
     return subscription;
@@ -103,7 +116,9 @@ function processSubscriptions(subscriptions) {
 }
 
 function schedulePing(url, timeout) {
-  rp(url).then(() => setTimeout(() => schedulePing(url, timeout), timeout));
+  rp(url)
+    .then(() => setTimeout(() => schedulePing(url, timeout), timeout))
+    .catch(() => setTimeout(() => schedulePing(url, timeout), timeout));
 }
 
 export {

@@ -21,6 +21,7 @@ setImmediate(() => {
     );
   });
   schedulePing(`http://${ip}:${port}/subscriptions/process`, 5000);
+  schedulePing(`http://${ip}:${port}/courses/process`, 30000);
 });
 
 export default app;

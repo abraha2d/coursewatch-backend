@@ -764,6 +764,75 @@ define({
     },
     {
       type: "get",
+      url: "/coursese/process",
+      title: "Process courses",
+      name: "ProcessCourses",
+      group: "Course",
+      permission: [{ name: "public" }],
+      success: {
+        fields: {
+          "Success 204": [
+            {
+              group: "Success 204",
+              optional: false,
+              field: "204",
+              description: "<p>No Content.</p>"
+            }
+          ]
+        }
+      },
+      version: "0.0.0",
+      filename: "src/api/course/index.js",
+      groupTitle: "Course",
+      parameter: {
+        fields: {
+          Parameter: [
+            {
+              group: "Parameter",
+              type: "String",
+              optional: true,
+              field: "q",
+              description: "<p>Query to search.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "Number",
+              size: "1..30",
+              optional: true,
+              field: "page",
+              defaultValue: "1",
+              description: "<p>Page number.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "Number",
+              size: "1..100",
+              optional: true,
+              field: "limit",
+              defaultValue: "30",
+              description: "<p>Amount of returned items.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String[]",
+              optional: true,
+              field: "sort",
+              defaultValue: "-createdAt",
+              description: "<p>Order of returned items.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String[]",
+              optional: true,
+              field: "fields",
+              description: "<p>Fields to be returned.</p>"
+            }
+          ]
+        }
+      }
+    },
+    {
+      type: "get",
       url: "/courses/:id",
       title: "Retrieve course",
       name: "RetrieveCourse",
@@ -2116,6 +2185,13 @@ define({
             {
               group: "Parameter",
               type: "String",
+              optional: true,
+              field: "tel",
+              description: "<p>User's tel.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String",
               allowedValues: ["user", "admin"],
               optional: true,
               field: "role",
@@ -2523,6 +2599,13 @@ define({
               optional: true,
               field: "picture",
               description: "<p>User's picture.</p>"
+            },
+            {
+              group: "Parameter",
+              type: "String",
+              optional: true,
+              field: "tel",
+              description: "<p>User's tel.</p>"
             }
           ]
         }

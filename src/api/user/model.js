@@ -39,6 +39,9 @@ const userSchema = new Schema(
     picture: {
       type: String,
       trim: true
+    },
+    tel: {
+      type: String
     }
   },
   {
@@ -83,7 +86,7 @@ userSchema.methods = {
     let fields = ["id", "name", "picture"];
 
     if (full) {
-      fields = [...fields, "email", "createdAt"];
+      fields = [...fields, "email", "tel", "createdAt"];
     }
 
     fields.forEach(field => {

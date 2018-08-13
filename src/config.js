@@ -27,6 +27,8 @@ const config = {
     ip: process.env.IP || "0.0.0.0",
     apiRoot: process.env.API_ROOT || "",
     defaultEmail: "no-reply@coursewatch.sueztech.com",
+    textmagicUser: requireProcessEnv("TEXTMAGIC_USER"),
+    textmagicKey: requireProcessEnv("TEXTMAGIC_KEY"),
     sendgridKey: requireProcessEnv("SENDGRID_KEY"),
     masterKey: requireProcessEnv("MASTER_KEY"),
     jwtSecret: requireProcessEnv("JWT_SECRET"),

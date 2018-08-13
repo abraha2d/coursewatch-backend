@@ -2,7 +2,7 @@ import { Router } from "express";
 import { middleware as query } from "querymen";
 import { middleware as body } from "bodymen";
 import { master, token } from "../../services/passport";
-import { create, index, show, update, destroy } from "./controller";
+import { create, index, show, update, destroy, process } from "./controller";
 import { schema } from "./model";
 export Course, { schema } from "./model";
 
@@ -50,6 +50,16 @@ router.get(
   query({ term, crn: { type: RegExp } }),
   index
 );
+
+/**
+ * @api {get} /coursese/process Process courses
+ * @apiName ProcessCourses
+ * @apiGroup Course
+ * @apiPermission public
+ * @apiUse listParams
+ * @apiSuccess (Success 204) 204 No Content.
+ */
+router.get("/process", query(), process);
 
 /**
  * @api {get} /courses/:id Retrieve course

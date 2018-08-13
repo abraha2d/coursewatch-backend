@@ -1,4 +1,4 @@
-# coursewatch-backend v0.2.0-alpha.2
+# coursewatch-backend v0.2.1-beta.1
 
 
 
@@ -17,6 +17,7 @@
 - [Course](#course)
 	- [Create course](#create-course)
 	- [Delete course](#delete-course)
+	- [Process courses](#process-courses)
 	- [Retrieve course](#retrieve-course)
 	- [Retrieve courses](#retrieve-courses)
 	- [Update course](#update-course)
@@ -209,6 +210,23 @@
 | Name    | Type      | Description                          |
 |---------|-----------|--------------------------------------|
 | access_token			| String			|  <p>master access token.</p>							|
+
+## Process courses
+
+
+
+	GET /coursese/process
+
+
+### Parameters
+
+| Name    | Type      | Description                          |
+|---------|-----------|--------------------------------------|
+| q			| String			| **optional** <p>Query to search.</p>							|
+| page			| Number			| **optional** <p>Page number.</p>							|
+| limit			| Number			| **optional** <p>Amount of returned items.</p>							|
+| sort			| String[]			| **optional** <p>Order of returned items.</p>							|
+| fields			| String[]			| **optional** <p>Fields to be returned.</p>							|
 
 ## Retrieve course
 
@@ -483,6 +501,7 @@
 | password			| String			|  <p>User's password.</p>							|
 | name			| String			| **optional** <p>User's name.</p>							|
 | picture			| String			| **optional** <p>User's picture.</p>							|
+| tel			| String			| **optional** <p>User's tel.</p>							|
 | role			| String			| **optional** <p>User's role.</p>							|
 
 ## Delete user
@@ -568,5 +587,6 @@
 | access_token			| String			|  <p>User access_token.</p>							|
 | name			| String			| **optional** <p>User's name.</p>							|
 | picture			| String			| **optional** <p>User's picture.</p>							|
+| tel			| String			| **optional** <p>User's tel.</p>							|
 
 
