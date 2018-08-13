@@ -4,17 +4,17 @@ import { processCourse, processCourses } from "../../services/ellucian";
 
 export const create = ({ bodymen: { body } }, res, next) =>
   Course.create(body)
+    .then(course => processCourse(course))
     .then(course => course.view(true))
     .then(success(res, 201))
     .catch(next);
 
-export const index = ({ querymen: { query, select, cursor } }, res, next) =>
+export const index = ({ querymen: { query, select } }, res, next) =>
   Course.find(query, select)
     .populate({
       path: "term",
       populate: { path: "college" }
     })
-    .then(courses => processCourses(courses))
     .then(courses =>
       courses.reduce((courses, course) => {
         course && courses.push(course.view());
@@ -53,5 +53,19 @@ export const destroy = ({ params }, res, next) =>
   Course.findById(params.id)
     .then(notFound(res))
     .then(course => (course ? course.remove() : null))
+    .then(success(res, 204))
+    .catch(next);
+
+export const process = (
+  { user, querymen: { query, select, cursor } },
+  res,
+  next
+) =>
+  Course.find(query, select)
+    .populate({
+      path: "term",
+      populate: { path: "college" }
+    })
+    .then(courses => processCourses(courses))
     .then(success(res, 204))
     .catch(next);
