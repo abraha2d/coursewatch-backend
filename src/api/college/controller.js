@@ -9,6 +9,7 @@ export const create = ({ bodymen: { body } }, res, next) =>
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
   College.find(query, select, cursor)
+    .then(colleges => colleges.sort((a, b) => a.name.localeCompare(b.name)))
     .then(colleges => colleges.map(college => college.view()))
     .then(success(res))
     .catch(next);
