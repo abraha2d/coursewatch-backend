@@ -18,6 +18,10 @@ function courseURL(course) {
 }
 
 function processCourse(course) {
+  if (new Date() - course.updatedAt <= 4000) {
+    return Promise.resolve(course);
+  }
+
   const options = {
     uri: courseURL(course),
     transform: body => cheerio.load(body)
@@ -36,7 +40,7 @@ function processCourse(course) {
       if (tsn === "") {
         process.stderr.write(`Invalid CRN (${course.crn}), removing entry...`);
         course.remove();
-        return null;
+        return;
       }
 
       const [title, crn, sn, section] = tsn.split(" - ");
