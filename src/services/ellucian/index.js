@@ -25,7 +25,7 @@ function processCourse(course) {
 
   return rp(options)
     .then($ => {
-      const dciSel = "body > div.pagebodydiv > table:nth-child(2) > tbody";
+      const dciSel = "body > div.pagebodydiv > table > tbody";
       const tsnSel = `${dciSel} > tr:nth-child(1) > th`;
       const seatSel = `${dciSel} > tr:nth-child(2) > td > table > tbody > tr:nth-child(2)`;
       const capSel = `${seatSel} > td:nth-child(2)`;
@@ -55,6 +55,7 @@ function processCourse(course) {
         remaining: $(remSel).text()
       };
 
+      process.stdout.write("Saving...\n");
       Object.assign(course, {
         title,
         subject,
@@ -62,10 +63,14 @@ function processCourse(course) {
         section,
         availability
       }).save();
+      process.stdout.write("Saved.\n");
 
       return course;
     })
-    .catch(error => process.stderr.write(error.toString()));
+    .catch(error => {
+      process.stderr.write("HIIII");
+      process.stderr.write(error.toString());
+    });
 }
 
 function processCourses(courses) {
