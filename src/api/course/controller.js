@@ -4,6 +4,13 @@ import { processCourse, processCourses } from "../../services/ellucian";
 
 export const create = ({ bodymen: { body } }, res, next) =>
   Course.create(body)
+    .then(course =>
+      Course.populate(course, {
+        path: "term",
+        populate: { path: "college" }
+      })
+    )
+    .then(course => processCourse(course))
     .then(course => course.view(true))
     .then(success(res, 201))
     .catch(next);

@@ -7,6 +7,14 @@ import { Subscription } from ".";
 
 export const create = ({ user, bodymen: { body } }, res, next) =>
   Subscription.create({ ...body, user })
+    .then(subscription => Subscription.populate(subscription, "user"))
+    .then(subscription =>
+      Subscription.populate(subscription, {
+        path: "course",
+        populate: { path: "term", populate: { path: "college" } }
+      })
+    )
+    .then(subscription => processSubscription(subscription))
     .then(subscription => subscription.view(true))
     .then(success(res, 201))
     .catch(next);
