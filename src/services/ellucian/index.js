@@ -55,7 +55,6 @@ function processCourse(course) {
         remaining: $(remSel).text()
       };
 
-      process.stdout.write("Saving...\n");
       Object.assign(course, {
         title,
         subject,
@@ -63,12 +62,10 @@ function processCourse(course) {
         section,
         availability
       }).save();
-      process.stdout.write("Saved.\n");
 
       return course;
     })
     .catch(error => {
-      process.stderr.write("HIIII");
       process.stderr.write(error.toString());
     });
 }
