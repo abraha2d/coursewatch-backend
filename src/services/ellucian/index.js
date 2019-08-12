@@ -25,12 +25,12 @@ function processCourse(course) {
 
   return rp(options)
     .then($ => {
-      const dciSel = "body > div.pagebodydiv > table:nth-child(2) > tbody";
-      const tsnSel = `${dciSel} > tr:nth-child(1) > th`;
-      const seatSel = `${dciSel} > tr:nth-child(2) > td > table > tbody > tr:nth-child(2)`;
-      const capSel = `${seatSel} > td:nth-child(2)`;
-      const actSel = `${seatSel} > td:nth-child(3)`;
-      const remSel = `${seatSel} > td:nth-child(4)`;
+      const dciSel = "body > div.pagebodydiv > table:nth-of-type(1) > tbody";
+      const tsnSel = `${dciSel} > tr:nth-of-type(1) > th`;
+      const seatSel = `${dciSel} > tr:nth-of-type(2) > td > table:nth-of-type(1) > tbody > tr:nth-of-type(3)`;
+      const capSel = `${seatSel} > td:nth-of-type(1)`;
+      const actSel = `${seatSel} > td:nth-of-type(2)`;
+      const remSel = `${seatSel} > td:nth-of-type(3)`;
 
       const tsn = $(tsnSel).text();
       if (tsn === "") {

@@ -20,7 +20,6 @@
   },
   "devDependencies": {
     "apidoc": "^0.17.6",
-    "apidoc-markdown": "github:abraha2d/node-apidoc-markdown",
     "babel-eslint": "^8.0.1",
     "babel-jest": "^20.0.3",
     "cross-env": "^5.0.5",
@@ -43,6 +42,7 @@
     "supertest": "^3.0.0"
   },
   "dependencies": {
+    "@rigwild/apidoc-markdown": "^2.1.0",
     "babel-core": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
