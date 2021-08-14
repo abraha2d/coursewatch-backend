@@ -1,5 +1,7 @@
-import sendgrid, { mail as helper } from "sendgrid";
+import sgMail from "@sendgrid/mail";
 import { sendgridKey, defaultEmail } from "../../config";
+
+sgMail.setApiKey(sendgridKey);
 
 export const sendMail = ({
   fromEmail = defaultEmail,
@@ -8,16 +10,11 @@ export const sendMail = ({
   content,
   contentType = "text/html"
 }) => {
-  fromEmail = new helper.Email(fromEmail);
-  toEmail = new helper.Email(toEmail);
-  content = new helper.Content(contentType, content);
-  const mail = new helper.Mail(fromEmail, subject, toEmail, content);
-  const sg = sendgrid(sendgridKey);
-  const request = sg.emptyRequest({
-    method: "POST",
-    path: "/v3/mail/send",
-    body: mail.toJSON()
-  });
-
-  return sg.API(request);
+  const msg = {
+    to: toEmail,
+    from: fromEmail,
+    subject: subject,
+    html: content
+  };
+  return sgMail.send(msg);
 };
