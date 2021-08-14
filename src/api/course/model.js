@@ -32,6 +32,11 @@ const courseSchema = new Schema(
       capacity: Number,
       actual: Number,
       remaining: Number
+    },
+    waitlistAvailability: {
+      capacity: Number,
+      actual: Number,
+      remaining: Number
     }
   },
   {
@@ -57,6 +62,7 @@ courseSchema.methods = {
       section: this.section,
       title: this.title,
       availability: this.availability,
+      waitlistAvailability: this.waitlistAvailability,
       updatedAt: this.updatedAt
     };
 

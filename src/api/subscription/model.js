@@ -11,6 +11,9 @@ const subscriptionSchema = new Schema(
       type: Schema.ObjectId,
       ref: "Course",
       required: true
+    },
+    watchForWaitlist: {
+      type: Boolean
     }
   },
   {
@@ -31,6 +34,7 @@ subscriptionSchema.methods = {
       id: this.id,
       user: this.user.view(full),
       course: this.course.view(full),
+      watchForWaitlist: this.watchForWaitlist,
       updatedAt: this.updatedAt
     };
 

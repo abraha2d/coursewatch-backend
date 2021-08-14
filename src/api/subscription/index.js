@@ -7,7 +7,7 @@ import { schema } from "./model";
 export Subscription, { schema } from "./model";
 
 const router = new Router();
-const { course } = schema.tree;
+const { course, watchForWaitlist } = schema.tree;
 
 /**
  * @api {post} /subscriptions Create subscription
@@ -21,7 +21,7 @@ const { course } = schema.tree;
  * @apiError 404 Subscription not found.
  * @apiError 401 user access only.
  */
-router.post("/", token({ required: true }), body({ course }), create);
+router.post("/", token({ required: true }), body({ course, watchForWaitlist }), create);
 
 /**
  * @api {get} /subscriptions Retrieve subscriptions
@@ -71,7 +71,7 @@ router.get("/:id", token({ required: true }), show);
  * @apiError 404 Subscription not found.
  * @apiError 401 user access only.
  */
-router.put("/:id", token({ required: true }), body({ course }), update);
+router.put("/:id", token({ required: true }), body({ course, watchForWaitlist }), update);
 
 /**
  * @api {delete} /subscriptions/:id Delete subscription

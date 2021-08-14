@@ -27,10 +27,14 @@ function processCourse(course) {
     .then($ => {
       const dciSel = "body > div.pagebodydiv > table:nth-of-type(1) > tbody";
       const tsnSel = `${dciSel} > tr:nth-of-type(1) > th`;
-      const seatSel = `${dciSel} > tr:nth-of-type(2) > td > table:nth-of-type(1) > tbody > tr:nth-of-type(3)`;
+      const seatSel = `${dciSel} > tr:nth-of-type(2) > td > table:nth-of-type(1) > tbody > tr:nth-of-type(2)`;
       const capSel = `${seatSel} > td:nth-of-type(1)`;
       const actSel = `${seatSel} > td:nth-of-type(2)`;
       const remSel = `${seatSel} > td:nth-of-type(3)`;
+      const wlSeatSel = `${dciSel} > tr:nth-of-type(2) > td > table:nth-of-type(1) > tbody > tr:nth-of-type(3)`;
+      const wlCapSel = `${wlSeatSel} > td:nth-of-type(1)`;
+      const wlActSel = `${wlSeatSel} > td:nth-of-type(2)`;
+      const wlRemSel = `${wlSeatSel} > td:nth-of-type(3)`;
 
       const tsn = $(tsnSel).text();
       if (tsn === "") {
@@ -55,12 +59,19 @@ function processCourse(course) {
         remaining: $(remSel).text()
       };
 
+      const waitlistAvailability = {
+        capacity: $(wlCapSel).text(),
+        actual: $(wlActSel).text(),
+        remaining: $(wlRemSel).text()
+      };
+
       Object.assign(course, {
         title,
         subject,
         number,
         section,
-        availability
+        availability,
+        waitlistAvailability
       }).save();
 
       return course;
@@ -80,8 +91,9 @@ function processSubscription(subscription) {
     if (course === undefined) {
       return subscription;
     }
-    const { term, crn, subject, number, section, availability } = course;
-    if (availability.remaining > 0) {
+    const { term, crn, subject, number, section, availability, waitlistAvailability } = course;
+    const chosenAvailability = subscription.watchForWaitlist ? waitlistAvailability : availability;
+    if (chosenAvailability.remaining > 0) {
       process.stdout.write(
         `Notifying ${subscription.user.email} about ${crn}...\n`
       );
@@ -90,21 +102,25 @@ function processSubscription(subscription) {
         subject: `[Coursewatch] Alert for CRN ${crn}`,
         content: `Hey ${subscription.user.name},<br><br>
         ${subject} ${number} ${section} has ${
-          availability.remaining
-        } seats remaining! Go get your course!<br><br>
-        - Login to BuzzPort: https://buzzport.gatech.edu/<br>
-        - Click this link to jump straight to registration: https://buzzport.gatech.edu/cp/ip/login?sys=sct&url=https://oscar.gatech.edu/pls/bprod/bwskfreg.P_AltPin?term_in=${
+          chosenAvailability.remaining
+        } seats remaining${
+          subscription.watchForWaitlist ? " on the waitlist" : ""
+        }! Go get your spot!<br><br>
+        - First, log in to OSCAR: https://sso.sis.gatech.edu/ssomanager/c/SSB<br>
+        - Then, register for your course: https://oscar.gatech.edu/bprod/bwskfreg.P_AltPin?term_in=${
           term.yyyymm
         }<br><br>
-        Course info: ${courseURL(course)}<br><br>
+        Course info for <b>CRN ${crn}</b>: ${courseURL(course)}<br><br>
         - Coursewatch`
-      });
-      sendText({
-        phones: formatNumber(subscription.user.tel, "US", "E.164"),
-        text: `Alert for CRN ${crn} (${subject} ${number} ${section}): ${
-          availability.remaining
-        } seats remaining!`
-      });
+      }).catch((error) => console.error(`Email send failed! ${error}`));
+      if (subscription.user.tel) {
+        sendText({
+          phones: formatNumber(subscription.user.tel, "US", "E.164"),
+          text: `Alert for CRN ${crn} (${subject} ${number} ${section}): ${
+            chosenAvailability.remaining
+          } ${subscription.watchForWaitlist ? "waitlist " : ""}seats remaining!`
+        });
+      }
     }
     return subscription;
   });
