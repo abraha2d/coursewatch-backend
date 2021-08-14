@@ -1,7 +1,7 @@
 import rp from "request-promise";
 import cheerio from "cheerio";
 
-import { e164 } from "libphonenumber";
+import { formatNumber } from "libphonenumber-js";
 
 import { sendMail } from "../sendgrid";
 import { sendText } from "../textmagic";
@@ -98,7 +98,7 @@ function processSubscription(subscription) {
         - Coursewatch`
       });
       sendText({
-        phones: e164(subscription.user.tel, "US"),
+        phones: formatNumber(subscription.user.tel, "US", "E.164"),
         text: `Alert for CRN ${crn} (${subject} ${number} ${section}): ${
           availability.remaining
         } seats remaining!`

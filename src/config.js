@@ -34,9 +34,9 @@ const config = {
     jwtSecret: requireProcessEnv("JWT_SECRET"),
     mongo: {
       options: {
-        db: {
-          safe: true
-        }
+        // db: {
+        //   safe: true
+        // }
       }
     }
   },
