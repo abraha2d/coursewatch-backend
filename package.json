@@ -21,7 +21,7 @@
   "devDependencies": {
     "apidoc": "^0.53.0",
     "babel-eslint": "^8.0.1",
-    "babel-jest": "^20.0.3",
+    "babel-jest": "^29.7.0",
     "cross-env": "^5.0.5",
     "dotenv-safe": "^4.0.3",
     "eslint": "^8.25.0",
